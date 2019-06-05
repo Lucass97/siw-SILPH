@@ -1,10 +1,15 @@
 package it.uniroma3.siw.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.Type;
+
 
 @Entity
 public class Foto {
@@ -19,6 +24,11 @@ public class Foto {
 	
 	@ManyToOne
 	private Album album;
+	
+	@Lob
+	@Column(name="image")
+	@Type(type="org.hibernate.type.BinaryType")
+	private byte[] image;
 	
 	/*METODI GETTER E SETTER*/
 	public String getNome() {
@@ -87,6 +97,4 @@ public class Foto {
 		this.album = album;
 	}
 	
-	
-
 }
