@@ -27,7 +27,6 @@ public class Foto {
 	
 	@Lob
 	@Column(name="image")
-	@Type(type="org.hibernate.type.BinaryType")
 	private byte[] image;
 	
 	/*METODI GETTER E SETTER*/
@@ -50,7 +49,15 @@ public class Foto {
 	public long getId() {
 		return id;
 	}
-
+	
+	public byte[] getImage() {
+		return image;
+	}
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+	
+	/* METODI DI SERVIZIO */
 	@Override
 	public int hashCode() {
 		final int prime = 31;

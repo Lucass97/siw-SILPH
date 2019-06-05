@@ -1,0 +1,10 @@
+<!DOCTYPE htlm>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>petto distance</title>
+</head>
+<body>
+	<p th:text="${foto.nome}"></p>
+	<img th:src="*{'data:image/png;base64,'+ base64EncodedImage}" />
+</body>
+</html>
