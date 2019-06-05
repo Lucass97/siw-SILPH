@@ -1,5 +1,8 @@
 package it.uniroma3.siw.services;
 
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,5 +20,14 @@ public class FotoService {
 	@Transactional
 	public Foto salvaFoto(Foto foto) {
 		return this.fotoRepository.save(foto);
+	}
+	
+	public Foto getFotoById(long id) {
+		Optional<Foto> optionalFoto = this.fotoRepository.findById(id);
+		try {
+			return optionalFoto.get();
+		} catch (NoSuchElementException e) {
+			return null;
+		}
 	}
 }
