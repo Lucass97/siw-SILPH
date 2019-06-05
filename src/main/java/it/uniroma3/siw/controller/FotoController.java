@@ -1,5 +1,6 @@
 package it.uniroma3.siw.controller;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +24,10 @@ public class FotoController {
 	
 	@RequestMapping(value = "/foto/{id}" , method = RequestMethod.GET)
 	public String getFoto(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("foto",this.fotoService.getFotoById(id));
+		Foto foto = this.fotoService.getFotoById(id);
+		model.addAttribute("foto",foto);
+		String base64EncodedImage = Base64.encodeBase64String(foto.getImage());
+		model.addAttribute("base64EncodedImage", base64EncodedImage);
 		return "foto.html";
 	}
 }
