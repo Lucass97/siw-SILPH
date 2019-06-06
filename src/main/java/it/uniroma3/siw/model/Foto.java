@@ -8,9 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
-import org.hibernate.annotations.Type;
-
-
 @Entity
 public class Foto {
 	

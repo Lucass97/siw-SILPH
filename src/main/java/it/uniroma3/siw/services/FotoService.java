@@ -22,6 +22,7 @@ public class FotoService {
 		return this.fotoRepository.save(foto);
 	}
 	
+	@Transactional
 	public Foto getFotoById(long id) {
 		Optional<Foto> optionalFoto = this.fotoRepository.findById(id);
 		try {
@@ -29,5 +30,10 @@ public class FotoService {
 		} catch (NoSuchElementException e) {
 			return null;
 		}
+	}
+	
+	@Transactional
+	public boolean alreadyExists(Foto foto) {
+		return this.fotoRepository.existsById(foto.getId());
 	}
 }
