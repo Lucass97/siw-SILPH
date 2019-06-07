@@ -1,51 +1,31 @@
 package it.uniroma3.siw.model;
 
-import java.time.LocalDate;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Fotografo {
+public class Utente {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	private String nome;
-	
-	private String cognome;
-	
-	private LocalDate dataNascita;
+	private String username;
 	
 	private String email;
-
+	
+	private String password;
+	
 	/* METODI GETTERS & SETTERS */
-
-	public String getNome() {
-		return nome;
+	
+	public String getUsername() {
+		return username;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getCognome() {
-		return cognome;
-	}
-
-	public void setCognome(String cognome) {
-		this.cognome = cognome;
-	}
-
-	public LocalDate getDataNascita() {
-		return dataNascita;
-	}
-
-	public void setDataNascita(LocalDate dataNascita) {
-		this.dataNascita = dataNascita;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getEmail() {
@@ -56,12 +36,20 @@ public class Fotografo {
 		this.email = email;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public long getId() {
 		return id;
 	}
 	
 	/* METODI DI SERVIZIO */
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -78,7 +66,7 @@ public class Fotografo {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Fotografo other = (Fotografo) obj;
+		Utente other = (Utente) obj;
 		if (id != other.id)
 			return false;
 		return true;
@@ -86,24 +74,22 @@ public class Fotografo {
 
 	@Override
 	public String toString() {
-		return "Fotografo [id=" + id + ", nome=" + nome + "]";
+		return "Utente [id=" + id + ", username=" + username + "]";
 	}
 	
 	/* COSTRUTTORI */
 	
-	public Fotografo() {
+	public Utente() {
 		
 	}
-
-	public Fotografo(long id, String nome, String cognome, LocalDate dataNascita, String email) {
+	
+	public Utente(long id, String username, String email, String password) {
 		this();
 		this.id = id;
-		this.nome = nome;
-		this.cognome = cognome;
-		this.dataNascita = dataNascita;
+		this.username = username;
 		this.email = email;
+		this.password = password;
 	}
-	
 	
 	
 	
