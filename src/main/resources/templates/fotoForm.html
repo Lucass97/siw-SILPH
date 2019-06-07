@@ -1,14 +1,15 @@
-<!DOCTYPE htlm>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Salva Foto</title>
 </head>
 <body>
-<form th:action="@{/salvaFoto}" th:object="${foto}" method="post">
+<form th:action="@{/salvaFoto}" th:object="${foto}" method="post" enctype="multipart/form-data">
   <ul>
-  <li><input type="file" th:field="*{image}"></li>
+  <li><input type="file" name="file"></li>
   <li>Nome: <input type="text" th:field="*{nome}"></li>
   <li>Descrizione: <input type="text" th:field="*{descrizione}"></li>
+  <li>Descrizione: <input type="submit" value="upload"></li>
   </ul>
 </form>	
 </body>
