@@ -1,5 +1,6 @@
 package it.uniroma3.siw.controller.storage;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -17,6 +18,8 @@ import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.uniroma3.siw.services.ContentType;
+
 @Service
 public class FileSystemStorageService implements StorageService {
 
@@ -26,10 +29,18 @@ public class FileSystemStorageService implements StorageService {
     public FileSystemStorageService(StorageProperties properties) {
         this.rootLocation = Paths.get(properties.getLocation());
     }
-
+    
     @Override
     public void store(MultipartFile file) {
+    	store(file,file.getOriginalFilename());
+    }
+
+    @Override
+    public void store(MultipartFile file, String newFileName) {
+   
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
+        filename = filename.replace(filename, newFileName);
+        filename = filename.concat(ContentType.contentTypeToExtension(file.getContentType()));
         try {
             if (file.isEmpty()) {
                 throw new StorageException("Failed to store empty file " + filename);
@@ -100,5 +111,14 @@ public class FileSystemStorageService implements StorageService {
         catch (IOException e) {
             throw new StorageException("Could not initialize storage", e);
         }
+    }
+    
+    @Override
+    public void delete(String filename) {
+    	try {
+			Files.deleteIfExists(rootLocation.resolve(filename));
+		} catch (IOException e) {
+			 throw new StorageException("Could not delete file " + filename);
+		}
     }
 }

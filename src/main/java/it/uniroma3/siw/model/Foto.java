@@ -1,32 +1,32 @@
 package it.uniroma3.siw.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Foto {
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	private String id;
 	
+	private String imageType;
+
 	private String nome;
-	
+
 	private String descrizione;
-	
+
 	@ManyToOne
 	private Album album;
-	
-	@Lob
-	@Column(name="image")
-	private byte[] image;
-	
+
 	/*METODI GETTER E SETTER*/
+	
+
 	public String getNome() {
 		return nome;
 	}
@@ -43,25 +43,34 @@ public class Foto {
 		this.descrizione = descrizione;
 	}
 
-	public long getId() {
+	public Album getAlbum() {
+		return album;
+	}
+
+	public void setAlbum(Album album) {
+		this.album = album;
+	}
+
+
+	public String getId() {
 		return id;
 	}
 	
-	public byte[] getImage() {
-		return image;
-	}
-	public void setImage(byte[] image) {
-		this.image = image;
-	}
+	/*METODI GETTER E SETTER*/
 	
-	/* METODI DI SERVIZIO */
+	public String getImageType() {
+		return imageType;
+	}
+
+	public void setImageType(String imageType) {
+		this.imageType = imageType;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((descrizione == null) ? 0 : descrizione.hashCode());
-		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -74,31 +83,27 @@ public class Foto {
 		if (getClass() != obj.getClass())
 			return false;
 		Foto other = (Foto) obj;
-		if (descrizione == null) {
-			if (other.descrizione != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!descrizione.equals(other.descrizione))
-			return false;
-		if (id != other.id)
-			return false;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
 	
+	/* COSTRUTTORI */
+
 	public Foto() {
-		
+
 	}
 
-	public Foto(long id, String nome, String descrizione, Album album) {
+	public Foto(String id, String nome, String descrizione, Album album, String imageType) {
 		this();
 		this.id = id;
 		this.nome = nome;
 		this.descrizione = descrizione;
 		this.album = album;
+		this.imageType = imageType;
 	}
-	
+
 }

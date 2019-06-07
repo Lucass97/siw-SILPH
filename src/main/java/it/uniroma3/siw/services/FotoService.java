@@ -1,17 +1,10 @@
 package it.uniroma3.siw.services;
 
-import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import org.springframework.util.StringUtils;
-
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import it.uniroma3.siw.controller.storage.StorageException;
 import it.uniroma3.siw.model.Foto;
 import it.uniroma3.siw.repository.FotoRepository;
 
@@ -27,7 +20,12 @@ public class FotoService {
 	}
 	
 	@Transactional
-	public Foto getFotoById(long id) {
+	public void deleteFotoById(String id) {
+		this.fotoRepository.deleteById(id);
+	}
+	
+	@Transactional
+	public Foto getFotoById(String id) {
 		Optional<Foto> optionalFoto = this.fotoRepository.findById(id);
 		try {
 			return optionalFoto.get();
@@ -41,6 +39,7 @@ public class FotoService {
 		return this.fotoRepository.existsById(foto.getId());
 	}
 	
+	/*
 	public Foto storeFile(MultipartFile file) {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -59,5 +58,5 @@ public class FotoService {
         } catch (Exception ex) {
             throw new StorageException("Could not store file " + fileName + ". Please try again!", ex);
         }
-    }
+    }*/
 }

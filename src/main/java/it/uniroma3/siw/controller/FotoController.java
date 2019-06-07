@@ -1,5 +1,11 @@
 package it.uniroma3.siw.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -14,22 +20,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import it.uniroma3.siw.controller.storage.StorageService;
 import it.uniroma3.siw.model.Foto;
+import it.uniroma3.siw.services.ContentType;
 import it.uniroma3.siw.services.FotoService;
 
 @Controller
 public class FotoController {
-	
-	private final StorageService storageService;
 
-    @Autowired
-    public FotoController(StorageService storageService) {
-        this.storageService = storageService;
-    }
-    
+	@Autowired
+	private StorageService storageService;
+
 	@Autowired
 	private FotoService fotoService;
 
@@ -40,29 +42,36 @@ public class FotoController {
 	}
 
 	@RequestMapping(value = "/foto/{id}" , method = RequestMethod.GET)
-	public String getFoto(@PathVariable("id") Long id, Model model) {
+	public String getFoto(@PathVariable("id") String id, Model model) {
 		Foto foto = this.fotoService.getFotoById(id);
+		if(foto == null)
+			return "redirect:/tuamadre.html";
 		model.addAttribute("foto",foto);
-		String base64EncodedImage = Base64.encodeBase64String(foto.getImage());
-		model.addAttribute("base64EncodedImage", base64EncodedImage);
+		model.addAttribute("fileExtension",ContentType.contentTypeToExtension(foto.getImageType()));
 		return "foto.html";
+	}
+	
+	@RequestMapping(value = "/cancellaFoto/{id}" , method = RequestMethod.GET)
+	public String deleteFoto(@PathVariable("id") String id, Model model) {
+		Foto foto = this.fotoService.getFotoById(id);
+		if(foto == null)
+			return "redirect:/tuamadre.html";
+		String fileNameDotExtension = id + ContentType.contentTypeToExtension(foto.getImageType());
+		this.storageService.delete(fileNameDotExtension);
+		this.fotoService.deleteFotoById(id);
+		return "redirect:/index.html";
 	}
 
 	@RequestMapping(value="/salvaFoto",method = RequestMethod.POST)
-	public String newFoto(@Valid @ModelAttribute("foto") Foto foto, Model model,BindingResult bindingResult, @RequestParam("file") MultipartFile file) {
-		storageService.store(file);
-		if(!bindingResult.hasErrors())//in caso non ci siano errori
-			this.fotoService.salvaFoto(foto); //esegui il persist
-		return "index.html";
+	public String newFoto(@Valid @ModelAttribute("foto") Foto foto, Model model,BindingResult bindingResult, 
+			@RequestParam("file") MultipartFile fileImage) {
+		if(!bindingResult.hasErrors()) {//in caso non ci siano errori
+			foto.setImageType(fileImage.getContentType());
+			this.fotoService.salvaFoto(foto); //esegui il persistence
+			this.storageService.store(fileImage,foto.getId());
+			return "redirect:/foto/" + foto.getId();
+		}
+		return "redirect:/index.html";
 	}
-	
-	 @PostMapping("/uploadFile")
-	    public String uploadFile(@RequestParam("file") MultipartFile file) {
-	        Foto foto = fotoService.storeFile(file);
-
-	       
-
-	        return "redirect:/index.html";
-	    }
 
 }
