@@ -1,30 +1,22 @@
 package it.uniroma3.siw.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import it.uniroma3.siw.controller.storage.StorageService;
 import it.uniroma3.siw.model.Foto;
 import it.uniroma3.siw.services.ContentType;
 import it.uniroma3.siw.services.FotoService;
+import it.uniroma3.siw.storage.StorageService;
 
 @Controller
 public class FotoController {

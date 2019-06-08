@@ -1,5 +1,6 @@
 package it.uniroma3.siw.model;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -71,6 +72,17 @@ public class Album {
 	public String toString() {
 		return "Album [id=" + id + ", titolo=" + titolo + "]";
 	}
+	
+	/* METODI */
+	
+	public boolean aggiungiSingolaFoto(Foto foto) {
+		return this.foto.add(foto);
+	}
+	
+	public boolean aggiungiFoto(Collection<Foto> foto) {
+		return this.foto.addAll(foto);
+	}
+	
 	
 	/* COSTRUTTORI */
 	
