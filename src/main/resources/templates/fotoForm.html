@@ -14,7 +14,7 @@
 				class="row justify-content-center align-items-center">
 				<div id="inserisci-foto-column" class="col-md-6">
 					<div id="inserisci-foto-box" class="col-md-12">
-						<form id="inserisci-foto-form" th:action="@{/salvaFoto}" th:object="${foto}"
+						<form id="inserisci-foto-form" th:action="@{/salvaFoto}" th:object="${fotoForm}"
 							method="post" enctype="multipart/form-data">
 							<h3 class="text-center text-info">Inserisci foto</h3>
 							<div class="form-group">
@@ -31,6 +31,12 @@
 							<div class="form-group">
 								<label for="file"></label> <input type="file"
 									class="form-control-file" id="file" name="file">
+							</div>
+							
+							<div class="form-group">
+								<label for="album_id" class="text-info">Album</label><br> <input
+									type="text" name="album_id" id="album_id" class="form-control"
+									th:field="*{album_id}">
 							</div>
 
 							<div class="form-group">

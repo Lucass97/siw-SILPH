@@ -29,7 +29,7 @@ public class FotoController {
 
 	@RequestMapping("/inserisciFoto")
 	public String addFoto(Model model) {
-		model.addAttribute("foto",new Foto());
+		model.addAttribute("fotoForm",new FotoForm());
 		return "fotoForm.html";
 	}
 
@@ -39,7 +39,7 @@ public class FotoController {
 		if(foto == null)
 			return "redirect:/tuamadre.html";
 		model.addAttribute("foto",foto);
-		model.addAttribute("fileExtension",ContentType.contentTypeToExtension(foto.getImageType()));
+		model.addAttribute("filename",this.fotoService.generaNomeFile(foto));
 		return "foto.html";
 	}
 	
@@ -55,12 +55,15 @@ public class FotoController {
 	}
 
 	@RequestMapping(value="/salvaFoto",method = RequestMethod.POST)
-	public String newFoto(@Valid @ModelAttribute("foto") Foto foto, Model model,BindingResult bindingResult, 
+	public String newFoto(@Valid @ModelAttribute("fotoForm") FotoForm fotoForm, Model model,BindingResult bindingResult, 
 			@RequestParam("file") MultipartFile fileImage) {
 		if(!bindingResult.hasErrors()) {//in caso non ci siano errori
+			Foto foto = new Foto();
+			foto.setNome(fotoForm.getNome());
+			foto.setDescrizione(fotoForm.getDescrizione());
 			foto.setImageType(fileImage.getContentType());
-			this.fotoService.salvaFoto(foto); //esegui il persistence
-			this.storageService.store(fileImage,foto.getId());
+			this.fotoService.salvaFoto(foto,fotoForm.getAlbum_id()); //esegui il persistence
+			this.storageService.store(fileImage,fotoService.generaNomeFile(foto)); //salva immagine
 			return "redirect:/foto/" + foto.getId();
 		}
 		return "redirect:/index.html";

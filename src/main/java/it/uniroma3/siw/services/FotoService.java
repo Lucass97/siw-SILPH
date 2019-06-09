@@ -5,6 +5,8 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import it.uniroma3.siw.model.Album;
 import it.uniroma3.siw.model.Foto;
 import it.uniroma3.siw.repository.FotoRepository;
 
@@ -14,8 +16,14 @@ public class FotoService {
 	@Autowired
 	private FotoRepository fotoRepository;
 	
+	@Autowired
+	private AlbumService albumService;
+	
 	@Transactional
-	public Foto salvaFoto(Foto foto) {
+	public Foto salvaFoto(Foto foto,long album_id) {
+		Album album = this.albumService.getAlbumById(album_id);
+		album.aggiungiSingolaFoto(foto);
+		foto.setAlbum(album);
 		return this.fotoRepository.save(foto);
 	}
 	
@@ -39,24 +47,10 @@ public class FotoService {
 		return this.fotoRepository.existsById(foto.getId());
 	}
 	
-	/*
-	public Foto storeFile(MultipartFile file) {
-        // Normalize file name
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-
-        try {
-            // Check if the file's name contains invalid characters
-            if(fileName.contains("..")) {
-                throw new StorageException("Sorry! Filename contains invalid path sequence " + fileName);
-            }
-
-            Foto foto = new Foto();
-            foto.setNome("ienna");
-            foto.setDescrizione("ienna");
-
-            return fotoRepository.save(foto);
-        } catch (Exception ex) {
-            throw new StorageException("Could not store file " + fileName + ". Please try again!", ex);
-        }
-    }*/
+	public String generaNomeFile(Foto foto) {
+		String fileName = foto.getId();
+		String extension = ContentType.contentTypeToExtension(foto.getImageType());
+		return fileName.concat(extension);
+	}
+	
 }

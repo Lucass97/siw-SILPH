@@ -5,7 +5,7 @@
 </head>
 <body>
 	<p th:text="${foto.nome}"></p>
-	<img th:src="@{'/upload-dir' + '/' + ${foto.id} + ${fileExtension}}"  />
+	<img th:src="@{'/upload-dir' + '/' + ${filename}}"  />
 	
 </body>
 </html>
