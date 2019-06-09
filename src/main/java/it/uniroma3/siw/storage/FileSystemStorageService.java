@@ -17,8 +17,6 @@ import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import it.uniroma3.siw.services.ContentType;
-
 @Service
 public class FileSystemStorageService implements StorageService {
 
@@ -39,7 +37,6 @@ public class FileSystemStorageService implements StorageService {
    
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         filename = filename.replace(filename, newFileName);
-        filename = filename.concat(ContentType.contentTypeToExtension(file.getContentType()));
         try {
             if (file.isEmpty()) {
                 throw new StorageException("Failed to store empty file " + filename);
