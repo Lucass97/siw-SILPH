@@ -19,7 +19,7 @@ public class Album {
 	
 	private String titolo;
 	
-	@OneToMany(cascade = {CascadeType.PERSIST})
+	@OneToMany(mappedBy = "album", cascade = {CascadeType.REMOVE})
 	private List<Foto> foto;
 
 	/* METODI GETTERS & SETTERS */

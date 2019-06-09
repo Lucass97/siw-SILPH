@@ -21,6 +21,10 @@ public class AlbumService {
 		return this.albumRepository.save(album);
 	}
 	
+	public void deleteAlbumById(long id) {
+		this.albumRepository.deleteById(id);
+	}
+	
 	public Album getAlbumById(long id) {
 		Optional<Album> optionalAlbum = this.albumRepository.findById(id);
 		try {
