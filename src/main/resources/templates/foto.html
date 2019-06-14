@@ -1,11 +1,36 @@
 <!DOCTYPE htlm>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>petto distance</title>
+<title>Foto</title>
 </head>
 <body>
-	<p th:text="${foto.nome}"></p>
-	<img th:src="@{'/upload-dir' + '/' + ${filename}}"  />
-	
+	<h1>Dettagli foto</h1>
+	<table style="">
+		<tr>
+			<th>id</th>
+			<th>Nome</th>
+			<th>Descrizione</th>
+			<th>Album</th>
+		</tr>
+		<tr>
+			<td th:text="${foto.id}">...</td>
+			<td th:text="${foto.nome}">...</td>
+			<td th:text="${foto.descrizione}">...</td>
+			<td><a th:href="@{'/album' + '/' + ${foto.album.id}}" th:text="${foto.album.titolo}">...</a></td>
+		</tr>
+	</table>
+	<br>
+	<img th:src="@{'/upload-dir' + '/' + ${filename}}" />
+
 </body>
+<style>
+table {
+	border: 1px solid black;
+}
+
+th, td {
+	padding: 15px;
+	text-align: left;
+}
+</style>
 </html>

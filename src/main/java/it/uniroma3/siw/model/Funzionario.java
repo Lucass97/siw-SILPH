@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Utente {
+public class Funzionario {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -66,7 +66,7 @@ public class Utente {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Utente other = (Utente) obj;
+		Funzionario other = (Funzionario) obj;
 		if (id != other.id)
 			return false;
 		return true;
@@ -79,11 +79,11 @@ public class Utente {
 	
 	/* COSTRUTTORI */
 	
-	public Utente() {
+	public Funzionario() {
 		
 	}
 	
-	public Utente(long id, String username, String email, String password) {
+	public Funzionario(long id, String username, String email, String password) {
 		this();
 		this.id = id;
 		this.username = username;

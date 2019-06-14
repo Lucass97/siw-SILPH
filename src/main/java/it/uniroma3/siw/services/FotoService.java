@@ -1,5 +1,6 @@
 package it.uniroma3.siw.services;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -45,6 +46,16 @@ public class FotoService {
 	@Transactional
 	public boolean alreadyExists(Foto foto) {
 		return this.fotoRepository.existsById(foto.getId());
+	}
+	
+	@Transactional
+	public boolean alreadyExistsById(String id) {
+		return this.fotoRepository.existsById(id);
+	}
+	
+	@Transactional
+	public List<Foto> getRandomFoto(int limit) {
+		return this.fotoRepository.getRandomFoto(limit);
 	}
 	
 	public String generaNomeFile(Foto foto) {

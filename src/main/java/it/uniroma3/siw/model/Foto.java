@@ -92,6 +92,11 @@ public class Foto {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Foto [id=" + id + ", imageType=" + imageType + ", nome=" + nome + ", descrizione=" + descrizione + "]";
+	}
 	
 	/* COSTRUTTORI */
 

@@ -4,18 +4,20 @@
 <title>Mostra album</title>
 </head>
 <body>
-	<h1 th:text="${album.titolo}">Titolo album</h1>
+	<h1>Foto casuali</h1>
 	<table style ="border">
 		<tr>
 			<th>id</th>
 			<th>Nome</th>
 			<th>Descrizione</th>
+			<th>Album</th>
 		</tr>
-		<th:block th:each="foto : ${album.foto}">
+		<th:block th:each="foto : ${fotos}">
 			<tr>
 				<td><a th:href="@{'/foto' + '/' + ${foto.id}}" th:text="${foto.id}">...</a></td>
 				<td th:text="${foto.nome}">...</td>
 				<td th:text="${foto.descrizione}">...</td>
+				<td><a th:href="@{'/album' + '/' + ${foto.album.id}}" th:text="${foto.album.titolo}">...</a></td>
 			</tr>
 		</th:block>
 	</table>

@@ -7,7 +7,7 @@ public class ContentType {
 			case "image/jpg": return ".jpg";
 			case "image/jpeg": return ".jpeg";
 			case "image/gif": return ".gif";
-			default: return "";
+			default: return null;
 		}
 	}
 }

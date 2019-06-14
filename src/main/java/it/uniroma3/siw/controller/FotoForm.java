@@ -1,10 +1,13 @@
 package it.uniroma3.siw.controller;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class FotoForm {
 	
 	private String nome;
 	private String descrizione;
 	private long album_id;
+	private MultipartFile fileImage;
 	
 	/* METODI GETTERS & SETTERS */
 	
@@ -26,16 +29,23 @@ public class FotoForm {
 	public void setAlbum_id(long album_id) {
 		this.album_id = album_id;
 	}
+	public MultipartFile getFileImage() {
+		return fileImage;
+	}
+	public void setFileImage(MultipartFile fileImage) {
+		this.fileImage = fileImage;
+	}
 	
 	/* COSTRUTTORI */
 	
 	public FotoForm() {
 	}
 	
-	public FotoForm(String nome, String descrizione, long album_id) {
+	public FotoForm(String nome, String descrizione, long album_id, MultipartFile fileImage) {
 		this.nome = nome;
 		this.descrizione = descrizione;
 		this.album_id = album_id;
+		this.fileImage = fileImage;
 	}
 	
 }
