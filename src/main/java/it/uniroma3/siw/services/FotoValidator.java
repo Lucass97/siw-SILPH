@@ -30,8 +30,8 @@ public class FotoValidator implements Validator{
 		
 		if(fotoForm.getFileImage().isEmpty())
 			errors.rejectValue("fileImage", "required");
-		if(!this.albumService.alreadyExistsById(fotoForm.getAlbum_id()))
-			errors.rejectValue("album_id", "non_esiste_album");
+		/*if(!this.albumService.alreadyExistsById(fotoForm.getAlbum_id()))
+			errors.rejectValue("album_id", "non_esiste_album");*/
 		if(ContentType.contentTypeToExtension(fotoForm.getFileImage().getContentType())==null && errors.getFieldErrorCount("fileImage") == 0)
 			errors.rejectValue("fileImage", "file_non_supportato");
 		
