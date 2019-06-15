@@ -15,12 +15,14 @@ public class Foto {
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
-	
-	private String imageType;
 
 	private String nome;
 
 	private String descrizione;
+	
+	private String imageType;
+	
+	private String filePath;
 
 	@ManyToOne
 	@JoinColumn(name = "album_id")
@@ -52,13 +54,12 @@ public class Foto {
 	public void setAlbum(Album album) {
 		this.album = album;
 	}
-
+	
+	/*METODI GETTER E SETTER*/
 
 	public String getId() {
 		return id;
 	}
-	
-	/*METODI GETTER E SETTER*/
 	
 	public String getImageType() {
 		return imageType;
@@ -67,6 +68,16 @@ public class Foto {
 	public void setImageType(String imageType) {
 		this.imageType = imageType;
 	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+	
+	/*METODI DI SERVIZIO*/
 
 	@Override
 	public int hashCode() {

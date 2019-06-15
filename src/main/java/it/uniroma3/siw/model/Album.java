@@ -19,6 +19,8 @@ public class Album {
 	
 	private String titolo;
 	
+	private String descrizione;
+	
 	@OneToMany(mappedBy = "album", cascade = {CascadeType.REMOVE})
 	private List<Foto> foto;
 
@@ -38,6 +40,14 @@ public class Album {
 
 	public void setFoto(List<Foto> foto) {
 		this.foto = foto;
+	}
+
+	public String getDescrizione() {
+		return descrizione;
+	}
+
+	public void setDescrizione(String descrizione) {
+		this.descrizione = descrizione;
 	}
 
 	public long getId() {
