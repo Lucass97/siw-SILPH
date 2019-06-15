@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +40,7 @@ public class AlbumService {
 		this.albumRepository.deleteById(id);
 	}
 	
+	@Transactional
 	public Album getAlbumById(long id) {
 		Optional<Album> optionalAlbum = this.albumRepository.findById(id);
 		try {
@@ -47,10 +50,28 @@ public class AlbumService {
 		}
 	}
 	
+	@Transactional
+	public List<Album> getRandomAlbum(int limit) {
+		return this.albumRepository.getRandomAlbum(limit);
+	}
+	
+	@Transactional
+	public List<Album> tutti() {
+		return (List<Album>) this.albumRepository.findAll();
+	}
+	
+	@Transactional
+	public List<Album> effettuRicercaPerParametro(String parametro) {
+		return (List<Album>) this.albumRepository.ricercaAlbumByParametro(parametro);
+	}
+	
+	
+	@Transactional
 	public boolean alreadyExists(Album album) {
 		return this.albumRepository.existsById(album.getId());
 	}
 	
+	@Transactional
 	public boolean alreadyExistsById(long id) {
 		return this.albumRepository.existsById(id);
 	}
