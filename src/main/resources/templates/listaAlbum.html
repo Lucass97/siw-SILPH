@@ -9,11 +9,12 @@
 <link rel="icon" href="/docs/4.1/assets/img/favicons/favicon.ico">
 
 <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
-<link rel="stylesheet" type="text/css" href="../static/css/album.css" th:href="@{/css/album.css}">
+<link rel="stylesheet" type="text/css" href="../static/css/listaAlbum.css" th:href="@{/css/listaAlbum.css}">
 <script src="../static/js/jquery-3.4.1.min.js" th:src="@{/js/jquery-3.4.1.min.js}"></script>
 <script src="../static/js/bootstrap.js"  th:src="@{/js/bootstrap.js}"></script>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
-<title th:text="${album.titolo}">Titolo Album</title>
+<title>Login</title>
 
 </head>
 
@@ -63,83 +64,66 @@
 	</header>
 
 	<main role="main">
-
+	
 	<section class="jumbotron text-center">
-		<div class="container">
-			<h1 class="jumbotron-heading" th:text="${album.titolo}">Titolo album</h1>
-			<p class="lead text-muted" th:text="${album.descrizione}">Something short and leading about the
-				collection below—its contents, the creator, etc. Make it short and
-				sweet, but not too short so folks don't simply skip over it
-				entirely.</p>
-			<p>
-				<a href="#" class="btn btn-primary my-2">Main call to action</a> <a
-					href="#" sec:authorize="isAuthenticated()" class="btn btn-secondary my-2" th:href = "@{'/cancellaAlbum/' + ${album.id}}">Cancella album</a>
-			</p>
-		</div>
+	<div class="container">
+	<h2 class="jumbotron-heading">Effettua una ricerca</h2><br>
+      <div class="d-flex justify-content-center">
+      <form id="search-form"th:action="@{/cercaAlbum}" method="post">
+        <div class="searchbar">
+          <input class="search_input" type="text" name="titolo" placeholder="Cerca...">
+          <a href="#" onclick="document.getElementById('search-form').submit();" class="search_icon " type ="submit"><i class="fa fa-search"></i></a>
+        </div>
+        </form>
+      </div>
+    </div>
 	</section>
-
-	<div class="album py-5 bg-light">
-		<div class="container">
-
-			<div class="row">
-			<th:block th:each="foto : ${album.foto}">
-				<div class="col-md-4">
-					<div class="card mb-4 shadow-sm">
-						<img class="card-img-top"
-							data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail"
-							alt="Card image cap" th:src="@{${foto.filePath}}">
-						<div class="card-body">
-							<p class="card-title" th:text="${foto.nome}">Nome</p>
-							<p class="card-text" th:text="${foto.descrizione}">This is a wider card with supporting
-								text below as a natural lead-in to additional content. This
-								content is a little bit longer.</p>
-							<div class="d-flex justify-content-between align-items-center">
-								<div class="btn-group">
-									<button type="button" class="btn btn-sm btn-outline-secondary" th:onclick="|window.location.href='@{'/foto/' + ${foto.id}}'|">Richiedi</button>
-									<button sec:authorize="isAuthenticated()" type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-								</div>
-								<small class="text-muted">9 mins</small>
-							</div>
+	
+	<div class="container">
+	<th:block th:each="album : ${albums}">
+		<div class="row justify-content-center align-items-center">
+			<div class="col-md-4">
+				<div class="list-group">
+					<a href="#" th:href="@{'/album/'+ ${album.id}}"
+						class="list-group-item list-group-item-action flex-column align-items-start">
+						<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1" th:text="${album.titolo}">List group item
+								heading</h5>
+							<small class="text-muted">3 days ago</small>
 						</div>
-					</div>
+						<p class="mb-1" th:text="${album.descrizione}">Donec id elit
+							non mi porta gravida at eget metus. Maecenas sed diam eget risus
+							varius blandit.</p> <small class="text-muted">Donec id elit
+							non mi porta.</small>
+					</a>
 				</div>
-				</th:block>
 			</div>
 		</div>
-	</div>
-	
-	
-	<div id="inserisci-foto">
+		
+	</th:block></div>
+	<div id="inserisci-album" sec:authorize="isAuthenticated()">
 		<h3 class="text-center text-white pt-5"></h3>
 		<div class="container">
-			<div id="inserisci-foto-row"
+			<div id="inserisci-album-row"
 				class="row justify-content-center align-items-center">
-				<div id="inserisci-foto-column" class="col-md-6">
-					<div id="inserisci-foto-box" class="col-md-12">
-						<form id="inserisci-foto-form" th:action="@{'/album/' + ${album.id} +'/salvaFoto'}" th:object="${fotoForm}"
-							method="post" enctype="multipart/form-data">
-							<h3 class="text-center text-info">Inserisci foto</h3>
+				<div id="inserisci-album-column" class="col-md-6">
+					<div id="inserisci-album-box" class="col-md-12">
+						<form id="inserisci-album-form" th:action="@{/salvaAlbum}"
+							th:object="${album}" method="post">
+							<h3 class="text-center text-info">Inserisci Album</h3>
 							<div class="form-group">
-								<label for="nome" class="text-info">Nome:</label><br> <input
+								<label for="nome" class="text-info">Titolo:</label><br> <input
 									type="text" name="nome" id="nome" class="form-control"
-									th:field="*{nome}">
-									 <small th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Err</small>
+									th:field="*{titolo}">
 							</div>
 							<div class="form-group">
 								<label for="descrizione" class="text-info">Descrizione:</label><br>
 								<textarea class="form-control" name="descrizione"
 									id="descrizione" rows="3" th:field="*{descrizione}"></textarea>
 							</div>
-
-							<div class="form-group">
-								<label for="file"></label> <input type="file"
-									class="form-control-file" id="file" name="fileImage" th:field="*{fileImage}">
-									<small th:if="${#fields.hasErrors('fileImage')}" th:errors="*{fileImage}">Err</small>
-							</div>
-
 							<div class="form-group">
 								<input type="submit" name="submit" class="btn btn-info btn-md"
-									value="Upload">
+									value="Crea">
 							</div>
 						</form>
 					</div>
@@ -147,8 +131,11 @@
 			</div>
 		</div>
 	</div>
-
 	</main>
+	<br>
+	<br>
+	<br>
+	<br>
 
 	<footer class="text-muted">
 		<div class="container">
