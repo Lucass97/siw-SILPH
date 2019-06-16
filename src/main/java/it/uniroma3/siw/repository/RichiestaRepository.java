@@ -1,9 +1,17 @@
 package it.uniroma3.siw.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import it.uniroma3.siw.model.Richiesta;
 
 public interface RichiestaRepository extends JpaRepository<Richiesta, Long>{
-
+	
+	@Query(value = "SELECT * FROM Richiesta ORDER BY RANDOM() LIMIT ?1", nativeQuery = true)
+	List<Richiesta> getRandomRichieste(int limit);
+	
+	@Query(value = "SELECT r FROM Richiesta r WHERE r.email LIKE %?1% OR r.descrizione LIKE %?1% ORDER BY r.email")
+	List<Richiesta> ricercaRichiesteByParametro(String parametro);
 }

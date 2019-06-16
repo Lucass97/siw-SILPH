@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.controller.form.RichiestaForm;
 import it.uniroma3.siw.model.Foto;
@@ -51,5 +52,17 @@ public class RichiestaController {
 		this.richiestaService.salvaRichiesta(richiesta);
 		session.removeAttribute("fotoSelezionate"); //rimuovo dalla sessione perche non mi servono piu
 		return "redirect:/";
+	}
+	
+	@GetMapping("/richieste")
+	public String listaRichieste(Model model){
+		model.addAttribute("richieste", richiestaService.getRandomRichieste(5));
+		return "listaRichieste.html";
+	}
+	
+	@PostMapping(value = "/cercaRichieste")
+	public String cercaRichieste(Model model, @RequestParam("parametro") String parametro) {
+		model.addAttribute("richieste",this.richiestaService.effettuRicercaPerParametro(parametro));
+		return "listaRichieste.html";
 	}
 }

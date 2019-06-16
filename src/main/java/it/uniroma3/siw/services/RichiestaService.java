@@ -1,5 +1,6 @@
 package it.uniroma3.siw.services;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -21,6 +22,7 @@ public class RichiestaService {
 		public Richiesta salvaRichiesta(Richiesta richiesta) {
 			return this.richiestaRepository.save(richiesta);
 		}
+		
 		@Transactional
 		public Richiesta getRichiestaById(long id) {
 			Optional<Richiesta> optionalRichiesta = this.richiestaRepository.findById(id);
@@ -29,5 +31,19 @@ public class RichiestaService {
 			} catch (NoSuchElementException e) {
 				return null;
 			}
+		}
+		
+		public List<Richiesta> getRandomRichieste(int limit) {
+			return richiestaRepository.getRandomRichieste(limit);
+		}
+		
+		@Transactional
+		public List<Richiesta> tutti() {
+			return richiestaRepository.findAll();
+		}
+		
+		@Transactional
+		public List<Richiesta> effettuRicercaPerParametro(String parametro) {
+			return (List<Richiesta>) this.richiestaRepository.ricercaRichiesteByParametro(parametro);
 		}
 }
