@@ -1,0 +1,167 @@
+<!DOCTYPE htlm>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="/docs/4.1/assets/img/favicons/favicon.ico">
+
+<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+<link rel="stylesheet" type="text/css" href="../static/css/album.css" th:href="@{/css/album.css}">
+<script src="../static/js/jquery-3.4.1.min.js" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script src="../static/js/bootstrap.js"  th:src="@{/js/bootstrap.js}"></script>
+
+<title th:text="${album.titolo}">Titolo Album</title>
+
+</head>
+
+<body>
+
+	<header>
+		<div class="collapse bg-dark" id="navbarHeader">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-8 col-md-7 py-4">
+						<h4 class="text-white">About</h4>
+						<p class="text-muted">Add some information about the album
+							below, the author, or any other background context. Make it a few
+							sentences long so folks can pick up some informative tidbits.
+							Then, link them off to some social networking sites or contact
+							information.</p>
+					</div>
+					<div class="col-sm-4 offset-md-1 py-4">
+						<h4 class="text-white">Contact</h4>
+						<ul class="list-unstyled">
+							<li><a href="#" class="text-white">Follow on Twitter</a></li>
+							<li><a href="#" class="text-white">Like on Facebook</a></li>
+							<li><a href="#" class="text-white">Email me</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="navbar navbar-dark bg-dark shadow-sm">
+			<div class="container d-flex justify-content-between">
+				<a href="#" th:href="@{/}" class="navbar-brand d-flex align-items-center"> <svg
+						xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+						viewBox="0 0 24 24" fill="none" stroke="currentColor"
+						stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+						class="mr-2">
+						<path
+							d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+						<circle cx="12" cy="13" r="4"></circle></svg> <strong>FotoSi</strong>
+				</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse"
+					data-target="#navbarHeader" aria-controls="navbarHeader"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<main role="main">
+
+	<section class="jumbotron text-center">
+		<div class="container">
+			<h1 class="jumbotron-heading" th:text="${album.titolo}">Titolo album</h1>
+			<p class="lead text-muted" th:text="${album.descrizione}">Something short and leading about the
+				collection below—its contents, the creator, etc. Make it short and
+				sweet, but not too short so folks don't simply skip over it
+				entirely.</p>
+			<p>
+				<a href="#" class="btn btn-primary my-2">Main call to action</a> <a
+					href="#" sec:authorize="isAuthenticated()" class="btn btn-secondary my-2" th:href = "@{'/cancellaAlbum/' + ${album.id}}">Cancella album</a>
+			</p>
+		</div>
+	</section>
+
+	<div class="album py-5 bg-light">
+		<div class="container">
+
+			<div class="row">
+			<th:block th:each="foto : ${album.foto}">
+				<div class="col-md-4">
+					<div class="card mb-4 shadow-sm">
+						<img class="card-img-top"
+							data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail"
+							alt="Card image cap" th:src="@{${foto.filePath}}">
+						<div class="card-body">
+							<p class="card-title" th:text="${foto.nome}">Nome</p>
+							<p class="card-text" th:text="${foto.descrizione}">This is a wider card with supporting
+								text below as a natural lead-in to additional content. This
+								content is a little bit longer.</p>
+							<div class="d-flex justify-content-between align-items-center">
+								<div class="btn-group">
+									<button type="button" class="btn btn-sm btn-outline-secondary" th:onclick="|window.location.href='@{'/foto/' + ${foto.id}}'|">Richiedi</button>
+									<button sec:authorize="isAuthenticated()" type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+								</div>
+								<small class="text-muted">9 mins</small>
+							</div>
+						</div>
+					</div>
+				</div>
+				</th:block>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div id="inserisci-foto">
+		<h3 class="text-center text-white pt-5"></h3>
+		<div class="container">
+			<div id="inserisci-foto-row"
+				class="row justify-content-center align-items-center">
+				<div id="inserisci-foto-column" class="col-md-6">
+					<div id="inserisci-foto-box" class="col-md-12">
+						<form id="inserisci-foto-form" th:action="@{'/album/' + ${album.id} +'/salvaFoto'}" th:object="${richiestaForm}"
+							method="post" enctype="multipart/form-data">
+							<h3 class="text-center text-info">Inserisci foto</h3>
+							<div class="form-group">
+								<label for="email" class="text-info">Email:</label><br> <input
+									type="text" name="email" id="email" class="form-control"
+									th:field="*{email}">
+									 <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Err</small>
+							</div>
+							<div class="form-group">
+								<label for="descrizione" class="text-info">Descrizione:</label><br>
+								<textarea class="form-control" name="descrizione"
+									id="descrizione" rows="3" th:field="*{descrizione}"></textarea>
+							</div>
+
+							<div class="form-group">
+								<label for="file"></label> <input type="file"
+									class="form-control-file" id="file" name="fileImage" th:field="*{fileImage}">
+									<small th:if="${#fields.hasErrors('fileImage')}" th:errors="*{fileImage}">Err</small>
+							</div>
+
+							<div class="form-group">
+								<input type="submit" name="submit" class="btn btn-info btn-md"
+									value="Upload">
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	</main>
+
+	<footer class="text-muted">
+		<div class="container">
+			<p class="float-right">
+				<a href="#">Back to top</a>
+			</p>
+			<p>Album example is &copy; Bootstrap, but please download and
+				customize it for yourself!</p>
+			<p>
+				New to Bootstrap? <a href="../../">Visit the homepage</a> or read
+				our <a href="../../getting-started/">getting started guide</a>.
+			</p>
+		</div>
+	</footer>
+</body>
+</html>
