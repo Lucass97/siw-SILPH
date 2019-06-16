@@ -1,9 +1,14 @@
 package it.uniroma3.siw.model;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Funzionario {
@@ -17,6 +22,9 @@ public class Funzionario {
 	private String email;
 	
 	private String password;
+	
+	@OneToMany(mappedBy = "funzionario", cascade = {CascadeType.REMOVE})
+	private List<Richiesta> richieste;
 	
 	/* METODI GETTERS & SETTERS */
 	
@@ -74,24 +82,21 @@ public class Funzionario {
 
 	@Override
 	public String toString() {
-		return "Utente [id=" + id + ", username=" + username + "]";
+		return "Funzionario [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password + "]";
 	}
 	
 	/* COSTRUTTORI */
 	
 	public Funzionario() {
-		
+		this.richieste = new LinkedList<Richiesta>();
 	}
-	
-	public Funzionario(long id, String username, String email, String password) {
+
+	public Funzionario(String username, String email, String password, List<Richiesta> richieste) {
 		this();
-		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.password = password;
+		this.richieste = richieste;
 	}
-	
-	
-	
 
 }

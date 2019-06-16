@@ -80,7 +80,7 @@ public class Album {
 
 	@Override
 	public String toString() {
-		return "Album [id=" + id + ", titolo=" + titolo + "]";
+		return "Album [id=" + id + ", titolo=" + titolo + ", descrizione=" + descrizione + "]";
 	}
 	
 	/* METODI */

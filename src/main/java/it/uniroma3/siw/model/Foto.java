@@ -27,6 +27,10 @@ public class Foto {
 	@ManyToOne
 	@JoinColumn(name = "album_id")
 	private Album album;
+	
+	@ManyToOne
+	@JoinColumn(name = "fotografo_id")
+	private Fotografo fotografo;
 
 	/*METODI GETTER E SETTER*/
 	
@@ -53,6 +57,14 @@ public class Foto {
 
 	public void setAlbum(Album album) {
 		this.album = album;
+	}
+	
+	public Fotografo getFotografo() {
+		return fotografo;
+	}
+
+	public void setFotografo(Fotografo fotografo) {
+		this.fotografo = fotografo;
 	}
 	
 	/*METODI GETTER E SETTER*/
@@ -106,7 +118,8 @@ public class Foto {
 
 	@Override
 	public String toString() {
-		return "Foto [id=" + id + ", imageType=" + imageType + ", nome=" + nome + ", descrizione=" + descrizione + "]";
+		return "Foto [id=" + id + ", nome=" + nome + ", descrizione=" + descrizione + ", imageType=" + imageType
+				+ ", filePath=" + filePath + "]";
 	}
 	
 	/* COSTRUTTORI */

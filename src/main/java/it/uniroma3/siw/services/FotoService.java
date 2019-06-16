@@ -1,6 +1,5 @@
 package it.uniroma3.siw.services;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 import it.uniroma3.siw.model.Album;
 import it.uniroma3.siw.model.Foto;
 import it.uniroma3.siw.repository.FotoRepository;
-import it.uniroma3.siw.storage.StorageService;
 
 @Service
 public class FotoService {
@@ -22,9 +20,6 @@ public class FotoService {
 	
 	@Autowired
 	private AlbumService albumService;
-	
-	@Autowired
-	private StorageService storageService;
 	
 	@Transactional
 	public Foto salvaFoto(Foto foto,long album_id) {

@@ -95,9 +95,8 @@ public class Fotografo {
 		
 	}
 
-	public Fotografo(long id, String nome, String cognome, LocalDate dataNascita, String email) {
+	public Fotografo(String nome, String cognome, LocalDate dataNascita, String email) {
 		this();
-		this.id = id;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.dataNascita = dataNascita;

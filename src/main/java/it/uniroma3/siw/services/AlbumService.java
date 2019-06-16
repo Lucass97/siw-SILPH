@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import it.uniroma3.siw.model.Album;
 import it.uniroma3.siw.model.Foto;
 import it.uniroma3.siw.repository.AlbumRepository;
-import it.uniroma3.siw.storage.StorageService;
+import it.uniroma3.siw.services.storage.StorageService;
 
 @Service
 public class AlbumService {

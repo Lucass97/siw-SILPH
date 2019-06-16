@@ -12,6 +12,7 @@
 <link rel="stylesheet" type="text/css" href="../static/css/album.css" th:href="@{/css/album.css}">
 <script src="../static/js/jquery-3.4.1.min.js" th:src="@{/js/jquery-3.4.1.min.js}"></script>
 <script src="../static/js/bootstrap.js"  th:src="@{/js/bootstrap.js}"></script>
+<script src="../static/js/index.js"  th:src="@{/js/index.js}"></script>
 
 <title th:text="${album.titolo}">Titolo Album</title>
 
@@ -95,7 +96,7 @@
 								content is a little bit longer.</p>
 							<div class="d-flex justify-content-between align-items-center">
 								<div class="btn-group">
-									<button type="button" class="btn btn-sm btn-outline-secondary" th:onclick="|window.location.href='@{'/foto/' + ${foto.id}}'|">Richiedi</button>
+									<button th:id="${foto.id}" type="button" class="btn btn-sm btn-outline-secondary" th:attr="onclick=|selezionaFoto('${foto.id}')|" >Richiedi</button>
 									<button sec:authorize="isAuthenticated()" type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
 								</div>
 								<small class="text-muted">9 mins</small>

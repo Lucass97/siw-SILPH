@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
-import it.uniroma3.siw.storage.StorageProperties;
-import it.uniroma3.siw.storage.StorageService;
+import it.uniroma3.siw.services.storage.StorageProperties;
+import it.uniroma3.siw.services.storage.StorageService;
 
 @SpringBootApplication
 @EnableConfigurationProperties(StorageProperties.class)

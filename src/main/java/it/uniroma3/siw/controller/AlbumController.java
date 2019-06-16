@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.model.Album;
-import it.uniroma3.siw.model.Funzionario;
 import it.uniroma3.siw.services.AlbumService;
 import it.uniroma3.siw.services.FotoService;
 
