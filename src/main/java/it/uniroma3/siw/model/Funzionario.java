@@ -23,7 +23,7 @@ public class Funzionario {
 	
 	private String password;
 	
-	@OneToMany(mappedBy = "funzionario", cascade = {CascadeType.REMOVE})
+	@OneToMany()
 	private List<Richiesta> richieste;
 	
 	/* METODI GETTERS & SETTERS */

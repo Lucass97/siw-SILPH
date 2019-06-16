@@ -19,13 +19,19 @@ public class MainController {
 	@GetMapping("/")
 	public String login(Model model) {
 		model.addAttribute("funzionario",new Funzionario());
-		model.addAttribute("fotos",this.fotoService.getRandomFoto(5));
+		model.addAttribute("fotos",this.fotoService.getRandomFoto(3));
 		return "index.html";
 	}
 
 	// Login form with error
-	@RequestMapping("/login-error.html")
+	@RequestMapping("/login?error")
 	public String loginError(Model model) {
+		model.addAttribute("loginError", true);
+		return "redirect:/";
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(Model model) {
 		model.addAttribute("loginError", true);
 		return "login.html";
 	}

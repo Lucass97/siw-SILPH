@@ -8,9 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+
 
 @Entity
 public class Richiesta {
@@ -21,11 +20,7 @@ public class Richiesta {
 	private String email;
 	private String descrizione;
 	
-	@ManyToOne
-	@JoinColumn(name = "funzionario_id")
-	private Funzionario funzionario;
-	
-	@OneToMany
+	@ManyToMany
 	private List<Foto> foto;
 	
 	/* METODI GETTERS & SETTERS */
@@ -44,12 +39,6 @@ public class Richiesta {
 	}
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
-	}
-	public Funzionario getFunzionario() {
-		return funzionario;
-	}
-	public void setFunzionario(Funzionario funzionario) {
-		this.funzionario = funzionario;
 	}
 	public List<Foto> getFoto() {
 		return foto;
@@ -82,8 +71,7 @@ public class Richiesta {
 	}
 	@Override
 	public String toString() {
-		return "Richiesta [id=" + id + ", email=" + email + ", descrizione=" + descrizione + ", funzionario="
-				+ funzionario + "]";
+		return "Richiesta [id=" + id + ", email=" + email + ", descrizione=" + descrizione + "]";
 	}
 	
 	/* METODI */
@@ -101,11 +89,10 @@ public class Richiesta {
 		this.foto = new LinkedList<Foto>();
 	}
 	
-	public Richiesta(String email, String descrizione, Funzionario funzionario, List<Foto> foto) {
+	public Richiesta(String email, String descrizione, List<Foto> foto) {
 		this();
 		this.email = email;
 		this.descrizione = descrizione;
-		this.funzionario = funzionario;
 		this.foto = foto;
 	}
 	

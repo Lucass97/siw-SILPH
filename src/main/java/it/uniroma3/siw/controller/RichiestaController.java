@@ -47,8 +47,8 @@ public class RichiestaController {
 		richiesta.setDescrizione(richiestaForm.getDescrizione());
 		richiesta.aggiungiFoto(fotoSelezionate.values());
 		this.richiestaService.salvaRichiesta(richiesta);
-		
-		return "/";
+		session.removeAttribute("fotoSelezionate"); //rimuovo dalla sessione perche non mi servono piu
+		return "redirect:/";
 	}
 	
 	@GetMapping(value = "/prova")
