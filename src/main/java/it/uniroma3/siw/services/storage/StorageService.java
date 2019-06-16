@@ -1,4 +1,4 @@
-package it.uniroma3.siw.storage;
+package it.uniroma3.siw.services.storage;
 
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;

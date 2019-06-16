@@ -1,4 +1,4 @@
-package it.uniroma3.siw.storage;
+package it.uniroma3.siw.services.storage;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,4 +1,4 @@
-package it.uniroma3.siw.storage;
+package it.uniroma3.siw.services.storage;
 
 
 public class StorageException extends RuntimeException {
