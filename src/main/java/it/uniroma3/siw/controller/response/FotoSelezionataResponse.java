@@ -1,4 +1,4 @@
-package it.uniroma3.siw.controller;
+package it.uniroma3.siw.controller.response;
 
 import it.uniroma3.siw.model.Foto;
 

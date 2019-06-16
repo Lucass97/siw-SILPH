@@ -3,7 +3,6 @@ package it.uniroma3.siw.model;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,7 +22,7 @@ public class Funzionario {
 	
 	private String password;
 	
-	@OneToMany()
+	@OneToMany
 	private List<Richiesta> richieste;
 	
 	/* METODI GETTERS & SETTERS */

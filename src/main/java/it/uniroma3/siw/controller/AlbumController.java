@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import it.uniroma3.siw.controller.form.FotoForm;
 import it.uniroma3.siw.model.Album;
 import it.uniroma3.siw.services.AlbumService;
 import it.uniroma3.siw.services.FotoService;

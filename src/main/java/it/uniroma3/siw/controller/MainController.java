@@ -36,9 +36,4 @@ public class MainController {
 		return "login.html";
 	}
 
-	@GetMapping("/statoLogin")
-	public String statologin() {
-		return "successoLogin.html";
-	}
-
 }

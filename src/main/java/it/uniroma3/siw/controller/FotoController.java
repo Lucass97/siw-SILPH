@@ -1,7 +1,6 @@
 package it.uniroma3.siw.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import it.uniroma3.siw.controller.form.FotoForm;
+import it.uniroma3.siw.controller.response.FotoSelezionataResponse;
 import it.uniroma3.siw.model.Album;
 import it.uniroma3.siw.model.Foto;
 import it.uniroma3.siw.services.AlbumService;
@@ -68,7 +69,6 @@ public class FotoController {
 		return "redirect:/album/" + album.getId();
 	}
 
-
 	@PostMapping(value="/album/{id}/salvaFoto")
 	public String salvaFoto(@PathVariable("id") Long id, @Valid @ModelAttribute("fotoForm") FotoForm fotoForm,
 			Model model,BindingResult bindingResult) {
@@ -89,18 +89,9 @@ public class FotoController {
 		return "album.html";
 	}
 
-	@RequestMapping(value = "/fotoCasuali/{limit}" , method = RequestMethod.GET)
-	public String getFotoCasuali(@PathVariable("limit") int limit, Model model) {
-		System.out.println(limit);
-		List<Foto> fotos = this.fotoService.getRandomFoto(limit);
-		if(fotos == null || fotos.isEmpty())
-			return "redirect:/tuamadre.html";
-		model.addAttribute("fotos",fotos);
-		return "randomFoto.html";
-	}
-
 	@GetMapping(value = "/selezionaFoto/{id}", headers="Accept=application/json")
 	public @ResponseBody FotoSelezionataResponse selezionaFoto(@PathVariable("id") String id , HttpServletRequest request, HttpSession session) {
+		@SuppressWarnings("unchecked")
 		Map<String, Foto> fotoSelezionate = (Map<String, Foto>) session.getAttribute("fotoSelezionate");
 
 		if(fotoSelezionate==null)
@@ -118,6 +109,7 @@ public class FotoController {
 	
 	@GetMapping(value = "/deselezionaFoto/{id}", headers="Accept=application/json")
 	public @ResponseBody FotoSelezionataResponse deselezionaFoto(@PathVariable("id") String id , HttpServletRequest request, HttpSession session) {
+		@SuppressWarnings("unchecked")
 		Map<String, Foto> fotoSelezionate = (Map<String, Foto>) session.getAttribute("fotoSelezionate");
 
 		if(fotoSelezionate==null)
@@ -136,6 +128,7 @@ public class FotoController {
 	@GetMapping(value = "/getFotoSelezionate", headers="Accept=application/json")
 	public @ResponseBody Map<String, FotoSelezionataResponse> getFotoSelezionate(HttpServletRequest request, HttpSession session) {
 
+		@SuppressWarnings("unchecked")
 		Map<String, Foto> fotoSelezionate = (Map<String, Foto>) session.getAttribute("fotoSelezionate");
 
 		if(fotoSelezionate==null)

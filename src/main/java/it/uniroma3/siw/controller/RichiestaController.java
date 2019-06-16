@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import it.uniroma3.siw.controller.form.RichiestaForm;
 import it.uniroma3.siw.model.Foto;
 import it.uniroma3.siw.model.Richiesta;
 import it.uniroma3.siw.services.RichiestaService;
@@ -26,6 +27,7 @@ public class RichiestaController {
 	@GetMapping(value = "/inviaRichiesta")
 	public String inviaRichiesta(Model model, HttpSession session) {
 		model.addAttribute("richiestaForm", new RichiestaForm());
+		@SuppressWarnings("unchecked")
 		Map<String, Foto> fotoSelezionate = (Map<String, Foto>) session.getAttribute("fotoSelezionate");
 		if(fotoSelezionate == null) {
 			fotoSelezionate = new HashMap<String,Foto>();
@@ -35,9 +37,9 @@ public class RichiestaController {
 		return "richiesta.html";
 	}
 	
-	
 	@PostMapping(value = "/salvaRichiesta")
 	public String salvaRichiesta(@Valid @ModelAttribute("richiestaForm") RichiestaForm richiestaForm,Model model, HttpSession session) {
+		@SuppressWarnings("unchecked")
 		Map<String, Foto> fotoSelezionate = (Map<String, Foto>) session.getAttribute("fotoSelezionate");
 		if(fotoSelezionate == null) {
 			fotoSelezionate = new HashMap<String,Foto>();
@@ -49,17 +51,5 @@ public class RichiestaController {
 		this.richiestaService.salvaRichiesta(richiesta);
 		session.removeAttribute("fotoSelezionate"); //rimuovo dalla sessione perche non mi servono piu
 		return "redirect:/";
-	}
-	
-	@GetMapping(value = "/prova")
-	public String asd(Model model, HttpSession session) {
-		Map<String, Foto> fotoSelezionate = (Map<String, Foto>) session.getAttribute("fotoSelezionate");
-		if(fotoSelezionate != null) {
-			System.out.println(fotoSelezionate.size());
-			model.addAttribute("fotoSelezionate", fotoSelezionate.values());
-			return "provaSessione.html";
-		}
-		else
-		return "/";
 	}
 }

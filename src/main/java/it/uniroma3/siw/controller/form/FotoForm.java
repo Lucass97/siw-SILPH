@@ -1,4 +1,4 @@
-package it.uniroma3.siw.controller;
+package it.uniroma3.siw.controller.form;
 
 import org.springframework.web.multipart.MultipartFile;
 
