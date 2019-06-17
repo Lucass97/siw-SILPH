@@ -22,7 +22,7 @@ public class MainController {
 	// Login form
 	@GetMapping("/")
 	public String home(Model model) {
-		securityService.autoLogin("lucas97", "ciao1234");
+		//securityService.autoLogin("lucas97", "ciao1234");
 		model.addAttribute("funzionario",new Funzionario());
 		model.addAttribute("fotos",this.fotoService.getRandomFoto(3));
 		return "index.html";

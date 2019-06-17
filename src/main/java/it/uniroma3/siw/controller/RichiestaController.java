@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -60,9 +61,18 @@ public class RichiestaController {
 		return "listaRichieste.html";
 	}
 	
+	@GetMapping("/richiesta/{id}")
+	public String getRichiesta(@PathVariable("id") long id, Model model){
+		Richiesta richiesta = this.richiestaService.getRichiestaById(id);
+		if(richiesta == null)
+			return "redirect:/richieste";
+		model.addAttribute("richiesta", richiesta);
+		return "richiestaDettagli.html";
+	}	
+	
 	@PostMapping(value = "/cercaRichieste")
 	public String cercaRichieste(Model model, @RequestParam("parametro") String parametro) {
-		model.addAttribute("richieste",this.richiestaService.effettuRicercaPerParametro(parametro));
+		model.addAttribute("richieste",this.richiestaService.effettuaRicercaPerParametro(parametro));
 		return "listaRichieste.html";
 	}
 }

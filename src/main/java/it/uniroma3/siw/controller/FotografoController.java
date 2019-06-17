@@ -39,9 +39,16 @@ public class FotografoController {
 		return "fotografo.html";
 	}
 	
+	@GetMapping(value = "/cancellaFotografo/{id}")
+	public String cancellaFotografo(@PathVariable("id") Long id, Model model) {
+		fotografoService.deleteFotografoById(id);
+		return "redirect:/fotografi";
+	
+	}
+	
 	@GetMapping(value = "/fotografi")
 	public String getFotografi(Model model) {
-		model.addAttribute("fotografi",fotografoService.tutti());
+		model.addAttribute("fotografi",fotografoService.getRandomFotografi(5));
 		model.addAttribute("fotografoForm",new FotografoForm());
 		return "listaFotografi.html";
 	}

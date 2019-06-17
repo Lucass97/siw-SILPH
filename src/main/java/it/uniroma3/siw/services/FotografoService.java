@@ -9,14 +9,26 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it.uniroma3.siw.model.Foto;
 import it.uniroma3.siw.model.Fotografo;
 import it.uniroma3.siw.repository.FotografoRepository;
+import it.uniroma3.siw.services.storage.StorageService;
 
 @Service
 public class FotografoService {
 	
 	@Autowired
 	private FotografoRepository fotografoRepository;
+	
+	@Autowired
+	private StorageService storageService;
+	
+	@Autowired 
+	private FotoService fotoService;
+	
+	@Autowired
+	private RichiestaService richiestaService;
+	
 	
 	@Transactional
 	public Fotografo salvaFotografo(Fotografo fotografo) {
@@ -62,6 +74,17 @@ public class FotografoService {
 	@Transactional
 	public List<Fotografo> getRandomFotografi(int limit) {
 		return (List<Fotografo>) this.fotografoRepository.getRandomFotografi(limit);
+	}
+	
+	@Transactional
+	public void deleteFotografoById(long id) {
+		Fotografo fotografo = this.getFotografoById(id);
+		for(Foto foto : fotografo.getFoto()) {
+			this.richiestaService.deleteFotoDaTutteLeRichieste(foto);
+			this.storageService.delete(this.fotoService.generaNomeFile(foto));
+			this.fotoService.deleteFotoById(foto.getId());
+		}
+		this.fotografoRepository.deleteById(id);
 	}
 	
 }

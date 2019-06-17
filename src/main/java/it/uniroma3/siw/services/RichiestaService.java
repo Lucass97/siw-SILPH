@@ -44,7 +44,7 @@ public class RichiestaService {
 		}
 		
 		@Transactional
-		public List<Richiesta> effettuRicercaPerParametro(String parametro) {
+		public List<Richiesta> effettuaRicercaPerParametro(String parametro) {
 			return (List<Richiesta>) this.richiestaRepository.ricercaRichiesteByParametro(parametro);
 		}
 		

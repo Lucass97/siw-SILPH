@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,7 +27,7 @@ public class Fotografo {
 	
 	private String email;
 	
-	@OneToMany(mappedBy = "fotografo")
+	@OneToMany(mappedBy = "fotografo", cascade = CascadeType.REMOVE)
 	private List<Foto> foto;
 
 	/* METODI GETTERS & SETTERS */
