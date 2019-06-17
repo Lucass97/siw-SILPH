@@ -37,13 +37,13 @@ public class FotografoService {
 	
 	@Transactional
 	public List<Fotografo> effettuaRicercaPerParametro(String parametro) {
-		return (List<Fotografo>) this.fotografoRepository.ricercaFotografiByParametro(parametro);
+		return (List<Fotografo>) this.fotografoRepository.findFotografiByParametro(parametro);
 	}
 	
 	@Transactional
 	public Fotografo trovaSingoloFotografoPerParametro(String parametro) {
 		try {
-			Fotografo fotografo = this.fotografoRepository.ricercaFotografiByParametro(parametro).get(0);
+			Fotografo fotografo = this.fotografoRepository.findFotografiByParametro(parametro).get(0);
 			return fotografo;
 		} catch (IndexOutOfBoundsException e) {
 			return null;
@@ -52,7 +52,7 @@ public class FotografoService {
 	
 	@Transactional
 	public boolean esisteFotografo(String parametro) {
-		List<Fotografo> listaFotografiTrovati = (List<Fotografo>) this.fotografoRepository.ricercaFotografiByParametro(parametro);
+		List<Fotografo> listaFotografiTrovati = (List<Fotografo>) this.fotografoRepository.findFotografiByParametro(parametro);
 		return !listaFotografiTrovati.isEmpty();
 	}
 	

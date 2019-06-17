@@ -13,5 +13,5 @@ public interface FotografoRepository  extends CrudRepository<Fotografo, Long>{
 	List<Fotografo> getRandomFotografi(int limit);
 	
 	@Query(value = "SELECT f FROM Fotografo f WHERE f.nome LIKE %?1% OR f.cognome LIKE %?1% OR f.email LIKE %?1% ORDER BY f.nome")
-	List<Fotografo> ricercaFotografiByParametro(String parametro);
+	List<Fotografo> findFotografiByParametro(String parametro);
 }

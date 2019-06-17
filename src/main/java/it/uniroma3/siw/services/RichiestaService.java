@@ -45,12 +45,12 @@ public class RichiestaService {
 		
 		@Transactional
 		public List<Richiesta> effettuaRicercaPerParametro(String parametro) {
-			return (List<Richiesta>) this.richiestaRepository.ricercaRichiesteByParametro(parametro);
+			return (List<Richiesta>) this.richiestaRepository.findRichiesteByParametro(parametro);
 		}
 		
 		@Transactional
 		public void deleteFotoDaTutteLeRichieste(Foto foto){
-			List<Richiesta> richieste = richiestaRepository.ricercaRichiestaByIdFoto(foto.getId());
+			List<Richiesta> richieste = richiestaRepository.findRichiestaByIdFoto(foto.getId());
 			for(Richiesta richiesta : richieste) {
 				richiesta.rimuoviSingolaFoto(foto);
 				this.richiestaRepository.save(richiesta);

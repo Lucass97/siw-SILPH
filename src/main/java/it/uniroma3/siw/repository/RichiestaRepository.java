@@ -13,8 +13,8 @@ public interface RichiestaRepository extends JpaRepository<Richiesta, Long>{
 	List<Richiesta> getRandomRichieste(int limit);
 	
 	@Query(value = "SELECT r FROM Richiesta r WHERE r.email LIKE %?1% OR r.descrizione LIKE %?1% ORDER BY r.email")
-	List<Richiesta> ricercaRichiesteByParametro(String parametro);
+	List<Richiesta> findRichiesteByParametro(String parametro);
 	
 	@Query(value = "SELECT r.id,r.descrizione,r.email FROM richiesta_foto rf FULL JOIN richiesta r ON r.id = rf.richiesta_id WHERE rf.foto_id = ?1",nativeQuery = true)
-	List<Richiesta> ricercaRichiestaByIdFoto(String id);
+	List<Richiesta> findRichiestaByIdFoto(String id);
 }

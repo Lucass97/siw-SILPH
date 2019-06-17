@@ -68,7 +68,7 @@ public class AlbumService {
 	
 	@Transactional
 	public List<Album> effettuRicercaPerParametro(String parametro) {
-		return (List<Album>) this.albumRepository.ricercaAlbumByParametro(parametro);
+		return (List<Album>) this.albumRepository.findAlbumByParametro(parametro);
 	}
 	
 	

@@ -1,4 +1,4 @@
-package it.uniroma3.siw.services;
+package it.uniroma3.siw.services.validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -8,6 +8,8 @@ import org.springframework.validation.Validator;
 
 import it.uniroma3.siw.controller.form.FotoForm;
 import it.uniroma3.siw.model.Foto;
+import it.uniroma3.siw.services.ContentType;
+import it.uniroma3.siw.services.FotografoService;
 
 @Component 
 public class FotoValidator implements Validator{

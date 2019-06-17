@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import it.uniroma3.siw.controller.form.FotografoForm;
 import it.uniroma3.siw.model.Fotografo;
 import it.uniroma3.siw.services.FotografoService;
-import it.uniroma3.siw.services.FotografoValidator;
+import it.uniroma3.siw.services.validator.FotografoValidator;
 
 @Controller
 public class FotografoController {
@@ -71,7 +71,7 @@ public class FotografoController {
 	}
 	
 	@PostMapping(value = "/cercaFotografi")
-	public String cercaFotografo(Model model, @RequestParam("parametro") String parametro) {
+	public String cercaFotografi(Model model, @RequestParam("parametro") String parametro) {
 		model.addAttribute("fotografi",fotografoService.effettuaRicercaPerParametro(parametro));
 		model.addAttribute("fotografoForm",new FotografoForm());
 		return "listaFotografi.html";

@@ -61,14 +61,23 @@ public class FotoForm {
 	
 	/* COSTRUTTORI */
 	
+	@Override
+	public String toString() {
+		return "FotoForm [nome=" + nome + ", descrizione=" + descrizione + ", album_id=" + album_id + ", fotografo_id="
+				+ fotografo_id + ", parametroFotografo=" + parametroFotografo + ", data=" + data + ", fileImage="
+				+ fileImage + "]";
+	}
+	
+	/* COSTRUTTORI */
 	public FotoForm() {
 	}
 	
-	public FotoForm(String nome, String descrizione, long album_id, long fotografo_id, MultipartFile fileImage) {
+	public FotoForm(String nome, String descrizione, long album_id, long fotografo_id,LocalDate data, MultipartFile fileImage) {
 		this.nome = nome;
 		this.descrizione = descrizione;
 		this.album_id = album_id;
 		this.fotografo_id = fotografo_id;
+		this.data = data;
 		this.fileImage = fileImage;
 	}
 	

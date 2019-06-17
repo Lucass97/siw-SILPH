@@ -56,7 +56,7 @@ public class RichiestaController {
 	}
 	
 	@GetMapping("/richieste")
-	public String listaRichieste(Model model){
+	public String getRichieste(Model model){
 		model.addAttribute("richieste", richiestaService.getRandomRichieste(5));
 		return "listaRichieste.html";
 	}
@@ -75,4 +75,5 @@ public class RichiestaController {
 		model.addAttribute("richieste",this.richiestaService.effettuaRicercaPerParametro(parametro));
 		return "listaRichieste.html";
 	}
+	
 }

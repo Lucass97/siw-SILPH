@@ -1,25 +1,26 @@
 <!DOCTYPE htlm>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="icon" href="/docs/4.1/assets/img/favicons/favicon.ico">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="/docs/4.1/assets/img/favicons/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+	<link rel="stylesheet" type="text/css" href="../static/css/index.css" th:href="@{/css/index.css}">
+	<link rel="stylesheet" type="text/css" href="../static/css/listaAlbum.css" th:href="@{/css/listaAlbum.css}">
+	<script src="../static/js/jquery-3.4.1.min.js" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+	<script src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
-<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
-<link rel="stylesheet" type="text/css" href="../static/css/index.css" th:href="@{/css/index.css}">
-<link rel="stylesheet" type="text/css" href="../static/css/listaAlbum.css" th:href="@{/css/listaAlbum.css}">
-<script src="../static/js/jquery-3.4.1.min.js" th:src="@{/js/jquery-3.4.1.min.js}"></script>
-<script src="../static/js/bootstrap.js"  th:src="@{/js/bootstrap.js}"></script>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-
-<title>Lista richieste</title>
+	<title>Lista richieste</title>
 
 </head>
 
 <body>
+
+	<!-- header -->
 
 	<header>
 		<div class="collapse bg-dark" id="navbarHeader">
@@ -27,19 +28,22 @@
 				<div class="row">
 					<div class="col-sm-8 col-md-7 py-4">
 						<h4 class="text-white">About</h4>
-						<p class="text-muted">Add some information about the album
-							below, the author, or any other background context. Make it a few
-							sentences long so folks can pick up some informative tidbits.
-							Then, link them off to some social networking sites or contact
-							information.</p>
+						<p class="text-muted">FotoSi è un servizio gratuito per la distribuzione di licenze per
+							fotografie.
+							Naviga tra album, fotografi e seleziona le foto che desideri. Invia una richiesta per
+							l’utilizzo delle foto e un funzionario le risponderà al più presto.</p>
 					</div>
 					<div class="col-sm-4 offset-md-1 py-4">
 						<h4 class="text-white">Info funzionario</h4>
 						<ul class="list-unstyled">
-							<li><a  sec:authorize="isAnonymous()" href="/#login" th:href="@{/#login}" class="text-white">Effettua il login</a></li>
-							<li class="text-white" sec:authorize="isAuthenticated()">Loggato con <a sec:authentication="name"></a></li>
-							<li><a  sec:authorize="isAuthenticated()" href="#" th:href="@{/logout}" class="text-white">Effettua il logout</a></li>
-							<li><a  sec:authorize="isAuthenticated()" href="#" th:href="@{/richieste}" class="text-white">Visualizza richieste</a></li>
+							<li><a sec:authorize="isAnonymous()" href="/#login" th:href="@{/#login}"
+									class="text-white">Effettua il login</a></li>
+							<li class="text-white" sec:authorize="isAuthenticated()">Loggato con <a
+									sec:authentication="name"></a></li>
+							<li><a sec:authorize="isAuthenticated()" href="#" th:href="@{/logout}"
+									class="text-white">Effettua il logout</a></li>
+							<li><a sec:authorize="isAuthenticated()" href="#" th:href="@{/richieste}"
+									class="text-white">Visualizza richieste</a></li>
 						</ul>
 					</div>
 				</div>
@@ -48,76 +52,80 @@
 		<div class="navbar navbar-dark bg-dark shadow-sm">
 			<div class="container d-flex justify-content-between">
 				<a href="#" th:href="@{/}" class="navbar-brand d-flex align-items-center"> <svg
-						xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-						viewBox="0 0 24 24" fill="none" stroke="currentColor"
-						stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+						xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+						stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
 						class="mr-2">
-						<path
-							d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-						<circle cx="12" cy="13" r="4"></circle></svg> <strong>FotoSi</strong>
+						<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z">
+						</path>
+						<circle cx="12" cy="13" r="4"></circle>
+					</svg> <strong>FotoSi</strong>
 				</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse"
-					data-target="#navbarHeader" aria-controls="navbarHeader"
-					aria-expanded="false" aria-label="Toggle navigation">
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
+					aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 			</div>
 		</div>
 	</header>
 
+	<!-- corpo principale -->
+
 	<main role="main">
-	
-	<section class="jumbotron text-center">
-	<div class="container">
-	<h1 class="jumbotron-heading">Cerca una richiesta</h1><br>
-      <div class="d-flex justify-content-center">
-      <form id="search-form"th:action="@{/cercaRichieste}" method="post">
-        <div class="searchbar">
-          <input class="search_input" type="text" name="parametro" placeholder="Cerca...">
-          <a href="#" onclick="document.getElementById('search-form').submit();" class="search_icon " type ="submit"><i class="fa fa-search"></i></a>
-        </div>
-        </form>
-      </div>
-    </div>
-	</section>
-	
-	<div class="container">
-	<th:block th:each="richiesta : ${richieste}">
-		<div class="row justify-content-center align-items-center">
-			<div class="col-md-4">
-				<div class="list-group">
-					<a href="#" th:href="@{'/richiesta/' + ${richiesta.id}}"
-						class="list-group-item list-group-item-action flex-column align-items-start">
-						<div class="d-flex w-100 justify-content-between">
-							<h5 class="mb-1" th:text="${richiesta.email}">List group item
-								heading</h5>
+
+		<!-- testo principale -->
+
+		<section class="jumbotron text-center">
+			<div class="container">
+				<h1 class="jumbotron-heading">Cerca una richiesta</h1><br>
+				<div class="d-flex justify-content-center">
+					<form id="search-form" th:action="@{/cercaRichieste}" method="post">
+						<div class="searchbar">
+							<input class="search_input" type="text" name="parametro" placeholder="Cerca...">
+							<a href="#" onclick="document.getElementById('search-form').submit();" class="search_icon "
+								type="submit"><i class="fa fa-search"></i></a>
 						</div>
-						<p class="mb-1" th:text="${richiesta.descrizione}">Donec id elit
-							non mi porta gravida at eget metus. Maecenas sed diam eget risus
-							varius blandit.</p>
-					</a>
+					</form>
 				</div>
 			</div>
+		</section>
+
+		<!-- lista richieste -->
+
+		<div class="container">
+			<th:block th:each="richiesta : ${richieste}">
+				<div class="row justify-content-center align-items-center">
+					<div class="col-md-4">
+						<div class="list-group">
+							<a href="#" th:href="@{'/richiesta/' + ${richiesta.id}}"
+								class="list-group-item list-group-item-action flex-column align-items-start">
+								<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1" th:text="${richiesta.email}">Email richiesta</h5>
+								</div>
+								<p class="mb-1" th:text="${richiesta.descrizione}">Descrizione richiesta</p>
+							</a>
+						</div>
+					</div>
+				</div>
+
+			</th:block>
 		</div>
-		
-	</th:block></div>
 	</main>
-	<br>
-	<br>
-	<br>
+	<br><br><br>
+
+	<!-- footer -->
 
 	<footer class="text-muted">
 		<div class="container">
 			<p class="float-right">
 				<a href="#">Back to top</a>
 			</p>
-			<p>Album example is &copy; Bootstrap, but please download and
-				customize it for yourself!</p>
+			<p>FotoSi è una società &copy; FotoSi & Co, tutti i diritti sono riservati</p>
 			<p>
-				New to Bootstrap? <a href="../../">Visit the homepage</a> or read
-				our <a href="../../getting-started/">getting started guide</a>.
+				Al momento il sito è ancora in fase di sviluppo, per maggiori informazioni visita <a href="/">questa
+					pagina</a>
 			</p>
 		</div>
 	</footer>
 </body>
+
 </html>

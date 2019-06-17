@@ -6,6 +6,7 @@ public class RichiestaForm {
 	private String descrizione;
 	
 	/* METODI GETTERS & SETTERS */
+	
 	public String getEmail() {
 		return email;
 	}
@@ -19,17 +20,23 @@ public class RichiestaForm {
 		this.descrizione = descrizione;
 	}
 	
+	/* METODI DI SERVIZIO */
+	
+	@Override
+	public String toString() {
+		return "RichiestaForm [email=" + email + ", descrizione=" + descrizione + "]";
+	}
+	
 	/* COSTRUTTORI */
 	
 	public RichiestaForm() {
 		
 	}
-	
+
 	public RichiestaForm(String email, String descrizione) {
 		this();
 		this.email = email;
 		this.descrizione = descrizione;
 	}
 		
-	
 }

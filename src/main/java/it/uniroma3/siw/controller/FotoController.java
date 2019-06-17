@@ -25,8 +25,8 @@ import it.uniroma3.siw.model.Album;
 import it.uniroma3.siw.model.Foto;
 import it.uniroma3.siw.services.AlbumService;
 import it.uniroma3.siw.services.FotoService;
-import it.uniroma3.siw.services.FotoValidator;
 import it.uniroma3.siw.services.storage.StorageService;
+import it.uniroma3.siw.services.validator.FotoValidator;
 
 @Controller
 public class FotoController {
@@ -43,12 +43,6 @@ public class FotoController {
 	@Autowired
 	private FotoValidator fotoValidator;
 
-	@RequestMapping("/inserisciFoto")
-	public String addFoto(Model model) {
-		model.addAttribute("fotoForm",new FotoForm());
-		return "fotoForm.html";
-	}
-
 	@RequestMapping(value = "/foto/{id}" , method = RequestMethod.GET)
 	public String getFoto(@PathVariable("id") String id, Model model) {
 		Foto foto = this.fotoService.getFotoById(id);
@@ -59,7 +53,7 @@ public class FotoController {
 	}
 
 	@RequestMapping(value = "/cancellaFoto/{id}" , method = RequestMethod.GET)
-	public String deleteFoto(@PathVariable("id") String id, Model model) {
+	public String cancellaFoto(@PathVariable("id") String id, Model model) {
 		Foto foto = this.fotoService.getFotoById(id);
 		if(foto == null)
 			return "redirect:/index.html";

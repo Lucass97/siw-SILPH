@@ -1,26 +1,25 @@
 <!DOCTYPE htlm>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="icon" href="/docs/4.1/assets/img/favicons/favicon.ico">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="/docs/4.1/assets/img/favicons/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+	<link rel="stylesheet" type="text/css" href="../static/css/index.css" th:href="@{/css/index.css}">
+	<script src="../static/js/jquery-3.4.1.min.js" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+	<script src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+	<script src="../static/js/index.js" th:src="@{/js/index.js}"></script>
 
-<link rel="stylesheet" type="text/css"
-	href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
-<link rel="stylesheet" type="text/css" href="../static/css/index.css" th:href="@{/css/index.css}">
-<script src="../static/js/jquery-3.4.1.min.js"
-	th:src="@{/js/jquery-3.4.1.min.js}"></script>
-<script src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
-<script src="../static/js/index.js"  th:src="@{/js/index.js}"></script>
-
-<title>Richiesta</title>
+	<title>Richiesta</title>
 
 </head>
 
 <body>
+
+	<!-- header -->
 
 	<header>
 		<div class="collapse bg-dark" id="navbarHeader">
@@ -28,19 +27,22 @@
 				<div class="row">
 					<div class="col-sm-8 col-md-7 py-4">
 						<h4 class="text-white">About</h4>
-						<p class="text-muted">Add some information about the album
-							below, the author, or any other background context. Make it a few
-							sentences long so folks can pick up some informative tidbits.
-							Then, link them off to some social networking sites or contact
-							information.</p>
+						<p class="text-muted">FotoSi è un servizio gratuito per la distribuzione di licenze per
+							fotografie.
+							Naviga tra album, fotografi e seleziona le foto che desideri. Invia una richiesta per
+							l’utilizzo delle foto e un funzionario le risponderà al più presto.</p>
 					</div>
 					<div class="col-sm-4 offset-md-1 py-4">
 						<h4 class="text-white">Info funzionario</h4>
 						<ul class="list-unstyled">
-							<li><a  sec:authorize="isAnonymous()" href="/#login" th:href="@{/#login}" class="text-white">Effettua il login</a></li>
-							<li class="text-white" sec:authorize="isAuthenticated()">Loggato con <a sec:authentication="name"></a></li>
-							<li><a  sec:authorize="isAuthenticated()" href="#" th:href="@{/logout}" class="text-white">Effettua il logout</a></li>
-							<li><a  sec:authorize="isAuthenticated()" href="#" th:href="@{/richieste}" class="text-white">Visualizza richieste</a></li>
+							<li><a sec:authorize="isAnonymous()" href="/#login" th:href="@{/#login}"
+									class="text-white">Effettua il login</a></li>
+							<li class="text-white" sec:authorize="isAuthenticated()">Loggato con <a
+									sec:authentication="name"></a></li>
+							<li><a sec:authorize="isAuthenticated()" href="#" th:href="@{/logout}"
+									class="text-white">Effettua il logout</a></li>
+							<li><a sec:authorize="isAuthenticated()" href="#" th:href="@{/richieste}"
+									class="text-white">Visualizza richieste</a></li>
 						</ul>
 					</div>
 				</div>
@@ -48,88 +50,91 @@
 		</div>
 		<div class="navbar navbar-dark bg-dark shadow-sm">
 			<div class="container d-flex justify-content-between">
-				<a href="#" th:href="@{/}"
-					class="navbar-brand d-flex align-items-center"> <svg
-						xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-						viewBox="0 0 24 24" fill="none" stroke="currentColor"
-						stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+				<a href="#" th:href="@{/}" class="navbar-brand d-flex align-items-center"> <svg
+						xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+						stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
 						class="mr-2">
-						<path
-							d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-						<circle cx="12" cy="13" r="4"></circle></svg> <strong>FotoSi</strong>
+						<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z">
+						</path>
+						<circle cx="12" cy="13" r="4"></circle>
+					</svg> <strong>FotoSi</strong>
 				</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse"
-					data-target="#navbarHeader" aria-controls="navbarHeader"
-					aria-expanded="false" aria-label="Toggle navigation">
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
+					aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 			</div>
 		</div>
 	</header>
 
+	<!-- corpo principale -->
+
 	<main role="main">
 
-	<section class="jumbotron text-center">
-		<div class="container">
-			<h1 class="jumbotron-heading" th:text="${richiesta.email}">Richiedi fotografie</h1>
-			<p class="lead text-muted" th:text="${richiesta.descrizione}">Compila la form sottostante per
-				inviare una richiesta di utilizzo per le foto selezionate. I nostri
-				funzionari risponderanno al più presto.</p>
-			<p>
-				<a href="#" class="btn btn-primary my-2" th:href ="@{/richieste}">Altre richieste</a>
-				<a class="btn btn-primary my-2 disabled">Conferma richiesta</a>
-			</p>
-		</div>
-	</section>
+		<!-- testo principale -->
 
-	<div class="album py-5 bg-light" th:if="${not richiesta.foto.empty}">
-		<div class="container">
-		<h3 class ="">Foto richieste:</h3><br>
-			<div class="row">
-				<th:block th:each="foto : ${richiesta.foto}">
-					<div class="col-md-4">
-						<div class="card mb-4 shadow-sm">
-							<img class="card-img-top"
-								data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail"
-								alt="Card image cap" th:src="@{${foto.filePath}}">
-							<div class="card-body">
-								<p class="card-title" ><b th:text="${foto.nome}"></b><br>
-							<a th:href="@{'/fotografo/' + ${foto.fotografo.id}}"><small class="text-muted" th:text="${foto.fotografo.nome} +' ' + ${foto.fotografo.cognome}">9 mins</small></a></p>
-								<p class="card-text" th:text="${foto.descrizione}">This is a
-									wider card with supporting text below as a natural lead-in to
-									additional content. This content is a little bit longer.</p>
-								<div class="d-flex justify-content-between align-items-center">
-									<div class="btn-group">
-										<button th:id="${foto.id}" type="button" class="btn btn-sm btn-outline-secondary disabled" >Richiedi</button>
-										<button sec:authorize="isAuthenticated()" type="button"
-											class="btn btn-sm btn-outline-secondary">Edit</button>
+		<section class="jumbotron text-center">
+			<div class="container">
+				<h1 class="jumbotron-heading" th:text="${richiesta.email}">Richiesta email</h1>
+				<p class="lead text-muted" th:text="${richiesta.descrizione}">Descrizione richiesta</p>
+				<p>
+					<a href="#" class="btn btn-primary my-2" th:href="@{/richieste}">Altre richieste</a>
+					<a class="btn btn-primary my-2 disabled">Conferma richiesta</a>
+				</p>
+			</div>
+		</section>
+
+		<!-- lista foto della richiesta -->
+
+		<div class="album py-5 bg-light" th:if="${not richiesta.foto.empty}">
+			<div class="container">
+				<h3 class="">Foto richieste:</h3><br>
+				<div class="row">
+					<th:block th:each="foto : ${richiesta.foto}">
+						<div class="col-md-4">
+							<div class="card mb-4 shadow-sm">
+								<img class="card-img-top"
+									data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail"
+									alt="Card image cap" th:src="@{${foto.filePath}}">
+								<div class="card-body">
+									<p class="card-title"><b th:text="${foto.nome}"></b><br>
+										<a th:href="@{'/fotografo/' + ${foto.fotografo.id}}"><small class="text-muted"
+												th:text="${foto.fotografo.nome} +' ' + ${foto.fotografo.cognome}">Nome
+												Cognome</small></a></p>
+									<p class="card-text" th:text="${foto.descrizione}">Descrizione foto</p>
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="btn-group">
+											<button th:id="${foto.id}" type="button"
+												class="btn btn-sm btn-outline-secondary disabled">Richiedi</button>
+											<button sec:authorize="isAuthenticated()" type="button"
+												class="btn btn-sm btn-outline-secondary">Edit</button>
+										</div>
+										<small class="text-muted" th:text="${foto.data}">data</small>
 									</div>
-									<small class="text-muted" th:text="${foto.data}">9 mins</small>
 								</div>
 							</div>
 						</div>
-					</div>
-				</th:block>
+					</th:block>
+				</div>
 			</div>
 		</div>
-	</div>
-	<br>
-	<br>
-	<br>
 	</main>
+	<br><br><br>
+
+	<!-- footer -->
 
 	<footer class="text-muted">
 		<div class="container">
 			<p class="float-right">
 				<a href="#">Back to top</a>
 			</p>
-			<p>Album example is &copy; Bootstrap, but please download and
-				customize it for yourself!</p>
+			<p>FotoSi è una società &copy; FotoSi & Co, tutti i diritti sono riservati</p>
 			<p>
-				New to Bootstrap? <a href="../../">Visit the homepage</a> or read
-				our <a href="../../getting-started/">getting started guide</a>.
+				Al momento il sito è ancora in fase di sviluppo, per maggiori informazioni visita <a href="/">questa
+					pagina</a>
 			</p>
 		</div>
 	</footer>
 </body>
+
 </html>

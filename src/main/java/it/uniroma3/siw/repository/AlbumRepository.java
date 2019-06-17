@@ -15,5 +15,5 @@ public interface AlbumRepository extends JpaRepository<Album, Long>{
 	List<Album> getRandomAlbum(int limit);
 	
 	@Query(value = "SELECT a FROM Album a WHERE a.titolo LIKE %?1% OR a.descrizione LIKE %?1% ORDER BY a.titolo")
-	List<Album> ricercaAlbumByParametro(String parametro);
+	List<Album> findAlbumByParametro(String parametro);
 }
