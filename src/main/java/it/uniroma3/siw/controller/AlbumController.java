@@ -17,12 +17,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import it.uniroma3.siw.controller.form.FotoForm;
 import it.uniroma3.siw.model.Album;
 import it.uniroma3.siw.services.AlbumService;
+import it.uniroma3.siw.services.validator.AlbumValidator;
 
 @Controller
 public class AlbumController {
 	
 	@Autowired
 	private AlbumService albumService;
+	
+	@Autowired
+	private AlbumValidator albumValidator;
 	
 	@GetMapping(value = "/cancellaAlbum/{id}")
 	public String cancellaAlbum(@PathVariable("id") long id, Model model) {
@@ -51,12 +55,14 @@ public class AlbumController {
 	}
 	
 	@RequestMapping(value="/salvaAlbum",method = RequestMethod.POST)
-	public String salvaAlbum(@Valid @ModelAttribute("foto") Album album, Model model,BindingResult bindingResult) {
+	public String salvaAlbum(@Valid @ModelAttribute("album") Album album, Model model,BindingResult bindingResult) {
+		this.albumValidator.validate(album, bindingResult);
 		if(!bindingResult.hasErrors()) {//in caso non ci siano errori
 			this.albumService.salvaAlbum(album); //esegui il persistence
 			return "redirect:/album/" + album.getId();
 		}
-		return "redirect:/album";
+		model.addAttribute("albums",this.albumService.getRandomAlbum(5));
+		return "listaAlbum.html";
 	}
 	
 	@PostMapping(value = "/cercaAlbum")

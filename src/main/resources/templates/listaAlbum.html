@@ -123,14 +123,16 @@
 							th:object="${album}" method="post">
 							<h3 class="text-center text-info">Inserisci Album</h3>
 							<div class="form-group">
-								<label for="nome" class="text-info">Titolo:</label><br> <input
-									type="text" name="nome" id="nome" class="form-control"
+								<label for="titolo" class="text-info">Titolo:</label><br> <input
+									type="text" name="titolo" id="titolo" class="form-control"
 									th:field="*{titolo}">
+								<small th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}">Err</small>
 							</div>
 							<div class="form-group">
 								<label for="descrizione" class="text-info">Descrizione:</label><br>
 								<textarea class="form-control" name="descrizione"
 									id="descrizione" rows="3" th:field="*{descrizione}"></textarea>
+								<small th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}">Err</small>
 							</div>
 							<div class="form-group">
 								<input type="submit" name="submit" class="btn btn-info btn-md"

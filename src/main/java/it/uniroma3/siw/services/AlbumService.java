@@ -73,8 +73,13 @@ public class AlbumService {
 	
 	
 	@Transactional
-	public boolean alreadyExists(Album album) {
-		return this.albumRepository.existsById(album.getId());
+	public boolean alreadyExists(Album album) {	
+		try {
+			this.albumRepository.findByTitoloAndDescrizione(album.getTitolo(), album.getDescrizione()).get(0);
+		} catch (IndexOutOfBoundsException e) {
+			return false;
+		}
+		return true;
 	}
 	
 	@Transactional
