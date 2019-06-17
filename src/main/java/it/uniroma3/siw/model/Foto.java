@@ -1,5 +1,8 @@
 package it.uniroma3.siw.model;
 
+import java.time.LocalDate;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,8 +20,11 @@ public class Foto {
 	private String id;
 
 	private String nome;
-
+	
+	@Column(length=1000)
 	private String descrizione;
+	
+	private LocalDate data;
 	
 	private String imageType;
 	
@@ -59,6 +65,14 @@ public class Foto {
 		this.album = album;
 	}
 	
+	public LocalDate getData() {
+		return data;
+	}
+
+	public void setData(LocalDate data) {
+		this.data = data;
+	}
+
 	public Fotografo getFotografo() {
 		return fotografo;
 	}
@@ -66,8 +80,6 @@ public class Foto {
 	public void setFotografo(Fotografo fotografo) {
 		this.fotografo = fotografo;
 	}
-	
-	/*METODI GETTER E SETTER*/
 
 	public String getId() {
 		return id;
@@ -125,14 +137,15 @@ public class Foto {
 	/* COSTRUTTORI */
 
 	public Foto() {
-
+		this.setData(LocalDate.now());
 	}
 
-	public Foto(String id, String nome, String descrizione, Album album, String imageType) {
+	public Foto(String id, String nome, String descrizione, LocalDate data, Album album, String imageType) {
 		this();
 		this.id = id;
 		this.nome = nome;
 		this.descrizione = descrizione;
+		this.setData(data);
 		this.album = album;
 		this.imageType = imageType;
 	}

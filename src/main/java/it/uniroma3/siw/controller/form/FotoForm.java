@@ -1,5 +1,7 @@
 package it.uniroma3.siw.controller.form;
 
+import java.time.LocalDate;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class FotoForm {
@@ -8,6 +10,8 @@ public class FotoForm {
 	private String descrizione;
 	private long album_id;
 	private long fotografo_id;
+	private String parametroFotografo;
+	private LocalDate data;
 	private MultipartFile fileImage;
 	
 	/* METODI GETTERS & SETTERS */
@@ -35,6 +39,18 @@ public class FotoForm {
 	}
 	public void setFotografo_id(long fotografo_id) {
 		this.fotografo_id = fotografo_id;
+	}
+	public String getParametroFotografo() {
+		return parametroFotografo;
+	}
+	public void setParametroFotografo(String parametroFotografo) {
+		this.parametroFotografo = parametroFotografo;
+	}
+	public LocalDate getData() {
+		return data;
+	}
+	public void setData(LocalDate data) {
+		this.data = data;
 	}
 	public MultipartFile getFileImage() {
 		return fileImage;

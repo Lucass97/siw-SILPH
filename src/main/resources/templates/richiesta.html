@@ -10,11 +10,11 @@
 
 <link rel="stylesheet" type="text/css"
 	href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
-<link rel="stylesheet" type="text/css" href="../static/css/album.css"
-	th:href="@{/css/album.css}">
+<link rel="stylesheet" type="text/css" href="../static/css/index.css" th:href="@{/css/index.css}">
 <script src="../static/js/jquery-3.4.1.min.js"
 	th:src="@{/js/jquery-3.4.1.min.js}"></script>
 <script src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+<script src="../static/js/index.js"  th:src="@{/js/index.js}"></script>
 
 <title>Invia richiesta</title>
 
@@ -35,11 +35,12 @@
 							information.</p>
 					</div>
 					<div class="col-sm-4 offset-md-1 py-4">
-						<h4 class="text-white">Contact</h4>
+						<h4 class="text-white">Info funzionario</h4>
 						<ul class="list-unstyled">
-							<li><a href="#" class="text-white">Follow on Twitter</a></li>
-							<li><a href="#" class="text-white">Like on Facebook</a></li>
-							<li><a href="#" class="text-white">Email me</a></li>
+							<li><a  sec:authorize="isAnonymous()" href="/#login" th:href="@{/#login}" class="text-white">Effettua il login</a></li>
+							<li class="text-white" sec:authorize="isAuthenticated()">Loggato con <a sec:authentication="name"></a></li>
+							<li><a  sec:authorize="isAuthenticated()" href="#" th:href="@{/logout}" class="text-white">Effettua il logout</a></li>
+							<li><a  sec:authorize="isAuthenticated()" href="#" th:href="@{/richieste}" class="text-white">Visualizza richieste</a></li>
 						</ul>
 					</div>
 				</div>
@@ -124,14 +125,14 @@
 								data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail"
 								alt="Card image cap" th:src="@{${foto.filePath}}">
 							<div class="card-body">
-								<p class="card-title" th:text="${foto.nome}">Nome</p>
+								<p class="card-title" ><b th:text="${foto.nome}"></b><br>
+							<a th:href="@{'/fotografo/' + ${foto.fotografo.id}}"><small class="text-muted" th:text="${foto.fotografo.nome} +' ' + ${foto.fotografo.cognome}">9 mins</small></a></p>
 								<p class="card-text" th:text="${foto.descrizione}">This is a
 									wider card with supporting text below as a natural lead-in to
 									additional content. This content is a little bit longer.</p>
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
-										<button type="button" class="btn btn-sm btn-outline-secondary"
-											s>Richiedi</button>
+										<button th:id="${foto.id}" type="button" class="btn btn-sm btn-outline-secondary" th:attr="onclick=|selezionaFoto('${foto.id}')|" >Richiedi</button>
 										<button sec:authorize="isAuthenticated()" type="button"
 											class="btn btn-sm btn-outline-secondary">Edit</button>
 									</div>
@@ -144,6 +145,9 @@
 			</div>
 		</div>
 	</div>
+	<br>
+	<br>
+	<br>
 	</main>
 
 	<footer class="text-muted">

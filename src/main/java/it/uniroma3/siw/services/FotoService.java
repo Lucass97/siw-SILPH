@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import it.uniroma3.siw.model.Album;
 import it.uniroma3.siw.model.Foto;
+import it.uniroma3.siw.model.Fotografo;
 import it.uniroma3.siw.repository.FotoRepository;
 
 @Service
@@ -20,11 +21,19 @@ public class FotoService {
 	@Autowired
 	private AlbumService albumService;
 	
+	@Autowired
+	private FotografoService fotografoService;
+	
 	@Transactional
-	public Foto salvaFoto(Foto foto,long album_id) {
+	public Foto salvaFoto(Foto foto,long album_id,String parametroFotografo) {
 		Album album = this.albumService.getAlbumById(album_id);
 		album.aggiungiSingolaFoto(foto);
 		foto.setAlbum(album);
+		Fotografo fotografo = fotografoService.trovaSingoloFotografoPerParametro(parametroFotografo);
+		if(fotografo!=null) {
+			foto.setFotografo(fotografo);
+			fotografo.aggiungiSingolaFoto(foto);
+		}
 		return this.fotoRepository.save(foto);
 	}
 	

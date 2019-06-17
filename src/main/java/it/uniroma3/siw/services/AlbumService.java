@@ -27,15 +27,21 @@ public class AlbumService {
 	@Autowired
 	private FotoService fotoService;
 	
+	@Autowired
+	private RichiestaService richiestaService;
+	
+	@Transactional
 	public Album salvaAlbum(Album album) {
 		return this.albumRepository.save(album);
 	}
 	
+	@Transactional
 	public void deleteAlbumById(long id) {
 		Album album = this.getAlbumById(id);
 		List<Foto> fotos = album.getFoto();
 		for(Foto foto: fotos) {
 			this.storageService.delete(fotoService.generaNomeFile(foto));
+			this.richiestaService.deleteFotoDaTutteLeRichieste(foto);
 		}
 		this.albumRepository.deleteById(id);
 	}

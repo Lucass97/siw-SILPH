@@ -1,0 +1,186 @@
+<!DOCTYPE htlm>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="/docs/4.1/assets/img/favicons/favicon.ico">
+
+<link rel="stylesheet" type="text/css"
+	href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+<link rel="stylesheet" type="text/css" href="../static/css/index.css"
+	th:href="@{/css/index.css}">
+<link rel="stylesheet" type="text/css"
+	href="../static/css/listaAlbum.css" th:href="@{/css/listaAlbum.css}">
+<script src="../static/js/jquery-3.4.1.min.js"
+	th:src="@{/js/jquery-3.4.1.min.js}"></script>
+	<script src="../static/js/bootstrap.js"  th:src="@{/js/bootstrap.js}"></script>
+<script src="../static/js/index.js" th:src="@{/js/index.js}"></script>
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+	
+<title>Lista fotografi</title>
+
+</head>
+
+<body>
+
+	<header>
+		<div class="collapse bg-dark" id="navbarHeader">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-8 col-md-7 py-4">
+						<h4 class="text-white">About</h4>
+						<p class="text-muted">Add some information about the album
+							below, the author, or any other background context. Make it a few
+							sentences long so folks can pick up some informative tidbits.
+							Then, link them off to some social networking sites or contact
+							information.</p>
+					</div>
+					<div class="col-sm-4 offset-md-1 py-4">
+						<h4 class="text-white">Info funzionario</h4>
+						<ul class="list-unstyled">
+							<li><a sec:authorize="isAnonymous()" href="/#login"
+								th:href="@{/#login}" class="text-white">Effettua il login</a></li>
+							<li class="text-white" sec:authorize="isAuthenticated()">Loggato
+								con <a sec:authentication="name"></a>
+							</li>
+							<li><a sec:authorize="isAuthenticated()" href="#"
+								th:href="@{/logout}" class="text-white">Effettua il logout</a></li>
+							<li><a sec:authorize="isAuthenticated()" href="#"
+								th:href="@{/richieste}" class="text-white">Visualizza
+									richieste</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="navbar navbar-dark bg-dark shadow-sm">
+			<div class="container d-flex justify-content-between">
+				<a href="#" th:href="@{/}"
+					class="navbar-brand d-flex align-items-center"> <svg
+						xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+						viewBox="0 0 24 24" fill="none" stroke="currentColor"
+						stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+						class="mr-2">
+						<path
+							d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+						<circle cx="12" cy="13" r="4"></circle></svg> <strong>FotoSi</strong>
+				</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse"
+					data-target="#navbarHeader" aria-controls="navbarHeader"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<main role="main">
+
+	<section class="jumbotron text-center">
+		<div class="container">
+			<h1 class="jumbotron-heading">Cerca un fotografo</h1>
+			<br>
+			<div class="d-flex justify-content-center">
+				<form id="search-form" th:action="@{/cercaFotografi}" method="post">
+					<div class="searchbar">
+						<input class="search_input" type="text" name="parametro"
+							placeholder="Cerca..."> <a href="#"
+							onclick="document.getElementById('search-form').submit();"
+							class="search_icon " type="submit"><i class="fa fa-search"></i></a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+
+	<div class="container">
+		<th:block th:each="fotografo : ${fotografi}">
+			<div class="row justify-content-center align-items-center">
+				<div class="col-md-4">
+					<div class="list-group">
+						<a href="#" th:href="@{'/fotografo/' + ${fotografo.id}}"
+							class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+								<h5 class="mb-1"
+									th:text="${fotografo.nome} + ' ' + ${fotografo.cognome}">Nome
+									Cognome</h5>
+								<small class="text-muted"
+									th:text="${#lists.size(fotografo.foto)} + ' foto'">3
+									days ago</small>
+							</div>
+							<p class="mb-1" th:text="${fotografo.email}">email</p> <small
+							class="text-muted"
+							th:text="'nato il ' + ${fotografo.dataNascita}"></small>
+						</a>
+					</div>
+				</div>
+			</div>
+
+		</th:block>
+	</div>
+	<div id="inserisci-fotografo" sec:authorize="isAuthenticated()">
+		<h3 class="text-center text-white pt-5"></h3>
+		<div class="container">
+			<div id="inserisci-album-row"
+				class="row justify-content-center align-items-center">
+				<div id="inserisci-fotografo-column" class="col-md-6">
+					<div id="inserisci-fotografo-box" class="col-md-12">
+						<form id="inserisci-fotografo-form" th:action="@{/salvaFotografo}"
+							th:object="${fotografoForm}" method="post">
+							<h3 class="text-center text-info">Inserisci fotografo</h3>
+							<div class="form-group">
+								<label for="nome" class="text-info">Nome:</label><br> <input
+									type="text" name="nome" id="nome" class="form-control"
+									th:field="*{nome}" placeholder="Mario">
+									 <small th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Err</small>
+							</div>
+							<div class="form-group">
+								<label for="cognome" class="text-info">Cognome:</label><br>
+								<input type="text" name="cognome" id="cognome"
+									class="form-control" th:field="*{cognome}" placeholder="Rossi">
+									 <small th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}">Err</small>
+							</div>
+							<div class="form-group">
+								<label for="email" class="text-info">Indirizzo email:</label> <input
+									type="email" class="form-control" th:field="*{email}" placeholder="mario.rossi@example.com">
+									 <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Err</small>
+							</div>
+							<div class="form-group">
+								<label for="email" class="text-info">Data nascita:</label>
+									<input type='text' class="form-control" placeholder="dd/MM/yyyy" th:field="*{dataNascita}"/>
+									 <small th:if="${#fields.hasErrors('dataNascita')}" th:errors="*{dataNascita}">Err</small>
+							</div>
+							<div class="form-group">
+								<input type="submit" name="submit" class="btn btn-info btn-md"
+									value="Invia">
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<br>
+	<br>
+	</main>
+	<footer class="text-muted">
+		<div class="container">
+			<p class="float-right">
+				<a href="#">Back to top</a>
+			</p>
+			<p>Album example is &copy; Bootstrap, but please download and
+				customize it for yourself!</p>
+			<p>
+				New to Bootstrap? <a href="../../">Visit the homepage</a> or read
+				our <a href="../../getting-started/">getting started guide</a>.
+			</p>
+		</div>
+	</footer>
+</body>
+</html>

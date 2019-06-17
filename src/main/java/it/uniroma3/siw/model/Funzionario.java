@@ -1,13 +1,9 @@
 package it.uniroma3.siw.model;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Funzionario {
@@ -21,9 +17,6 @@ public class Funzionario {
 	private String email;
 	
 	private String password;
-	
-	@OneToMany
-	private List<Richiesta> richieste;
 	
 	/* METODI GETTERS & SETTERS */
 	
@@ -87,15 +80,13 @@ public class Funzionario {
 	/* COSTRUTTORI */
 	
 	public Funzionario() {
-		this.richieste = new LinkedList<Richiesta>();
 	}
 
-	public Funzionario(String username, String email, String password, List<Richiesta> richieste) {
+	public Funzionario(String username, String email, String password) {
 		this();
 		this.username = username;
 		this.email = email;
 		this.password = password;
-		this.richieste = richieste;
 	}
 
 }

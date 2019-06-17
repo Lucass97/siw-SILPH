@@ -78,12 +78,11 @@ public class FotoController {
 			foto.setNome(fotoForm.getNome());
 			foto.setDescrizione(fotoForm.getDescrizione());
 			foto.setImageType(fotoForm.getFileImage().getContentType());
-			System.out.println(id);
-			this.fotoService.salvaFoto(foto,id); //esegui il persistence
+			this.fotoService.salvaFoto(foto,id,fotoForm.getParametroFotografo()); //esegui il persistence
 			foto.setFilePath(fotoService.generaPath(foto));
-			this.fotoService.salvaFoto(foto,id);
+			this.fotoService.salvaFoto(foto,id,fotoForm.getParametroFotografo());
 			this.storageService.store(fotoForm.getFileImage(),this.fotoService.generaNomeFile(foto)); //salva immagine
-			return "redirect:/foto/" + foto.getId();
+			return "redirect:/album/" + id;
 		}
 		model.addAttribute("album",this.albumService.getAlbumById(id));
 		return "album.html";

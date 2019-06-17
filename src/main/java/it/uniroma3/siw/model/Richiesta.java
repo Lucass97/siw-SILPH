@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,6 +19,7 @@ public class Richiesta {
 	private long id;
 	
 	private String email;
+	@Column(length=1000)
 	private String descrizione;
 	
 	@ManyToMany
@@ -78,6 +80,10 @@ public class Richiesta {
 	
 	public boolean aggiungiSingolaFoto(Foto foto) {
 		return this.foto.add(foto);
+	}
+	
+	public boolean rimuoviSingolaFoto(Foto foto) {
+		return this.foto.remove(foto);
 	}
 	
 	public boolean aggiungiFoto(Collection<Foto> foto) {

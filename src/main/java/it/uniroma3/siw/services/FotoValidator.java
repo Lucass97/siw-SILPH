@@ -1,5 +1,6 @@
 package it.uniroma3.siw.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -10,6 +11,9 @@ import it.uniroma3.siw.model.Foto;
 
 @Component 
 public class FotoValidator implements Validator{
+	
+	@Autowired
+	private FotografoService fotografoService;
 
 	@Override
 	public boolean supports(Class<?> aClass) {
@@ -22,10 +26,13 @@ public class FotoValidator implements Validator{
 		FotoForm fotoForm = (FotoForm) o;
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nome", "required");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "parametroFotografo", "required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "album_id", "required");
 		
 		if(fotoForm.getFileImage().isEmpty())
 			errors.rejectValue("fileImage", "required");
+		if(!this.fotografoService.esisteFotografo(fotoForm.getParametroFotografo()))
+			errors.rejectValue("parametroFotografo", "non_esiste_fotografo");
 		/*if(!this.albumService.alreadyExistsById(fotoForm.getAlbum_id()))
 			errors.rejectValue("album_id", "non_esiste_album");*/
 		if(ContentType.contentTypeToExtension(fotoForm.getFileImage().getContentType())==null && errors.getFieldErrorCount("fileImage") == 0)

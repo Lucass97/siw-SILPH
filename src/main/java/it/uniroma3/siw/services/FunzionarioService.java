@@ -1,5 +1,7 @@
 package it.uniroma3.siw.services;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,11 +18,13 @@ public class FunzionarioService{
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Transactional
     public void save(Funzionario funzionario) {
         funzionario.setPassword(bCryptPasswordEncoder.encode(funzionario.getPassword()));
         funzionarioRepository.save(funzionario);
     }
-
+    
+    @Transactional
     public Funzionario findByUsername(String username) {
         return funzionarioRepository.findByUsername(username);
     }

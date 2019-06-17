@@ -6,7 +6,7 @@ $jq(document).ready(function() {
 		$jq.each(result, function(i, val) {
 			$jq("#" + val.id).addClass("active");
 			$jq("#"+ val.id).attr('onclick', 'deselezionaFoto("' + val.id +'")');
-			});
+		});
 	}});
 });
 
@@ -29,4 +29,8 @@ function deselezionaFoto(id) {
 		}});
 	});
 }
+
+$jq(function () {
+	$jq('#datetimepicker1').datepicker();
+});
 
