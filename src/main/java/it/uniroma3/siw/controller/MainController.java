@@ -26,11 +26,6 @@ public class MainController {
 	@GetMapping("/")
 	public String home(Model model) {
 		//securityService.autoLogin("lucas", "ciao1234");
-		Funzionario funzionario = new Funzionario();
-		funzionario.setUsername("luca");
-		funzionario.setUsername("ciao1234");
-		if(!funzionarioService.esiste("luca"))
-			funzionarioService.save(funzionario);
 		model.addAttribute("funzionario",new Funzionario());
 		model.addAttribute("fotos",this.fotoService.getRandomFoto(3));
 		return "index.html";
