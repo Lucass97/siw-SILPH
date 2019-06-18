@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import it.uniroma3.siw.model.Funzionario;
 import it.uniroma3.siw.services.FotoService;
+import it.uniroma3.siw.services.FunzionarioService;
 import it.uniroma3.siw.services.security.SecurityService;
 
 @Controller
@@ -17,11 +18,19 @@ public class MainController {
 	
 	@Autowired
 	private SecurityService securityService;
+	
+	@Autowired
+	private FunzionarioService funzionarioService;
 
 	// Login form
 	@GetMapping("/")
 	public String home(Model model) {
 		//securityService.autoLogin("lucas", "ciao1234");
+		Funzionario funzionario = new Funzionario();
+		funzionario.setUsername("luca");
+		funzionario.setUsername("ciao1234");
+		if(!funzionarioService.esiste("luca"))
+			funzionarioService.save(funzionario);
 		model.addAttribute("funzionario",new Funzionario());
 		model.addAttribute("fotos",this.fotoService.getRandomFoto(3));
 		return "index.html";
