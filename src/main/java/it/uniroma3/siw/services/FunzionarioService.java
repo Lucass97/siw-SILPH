@@ -28,4 +28,12 @@ public class FunzionarioService{
     public Funzionario findByUsername(String username) {
         return funzionarioRepository.findByUsername(username);
     }
+    
+    @Transactional
+    public boolean esiste(String username) {
+    	Funzionario funzionarioTrovato = this.funzionarioRepository.findByUsername(username);
+    	if(funzionarioTrovato==null)
+    		return false;
+    	return true;
+    }
 }

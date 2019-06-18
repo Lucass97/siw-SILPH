@@ -15,45 +15,45 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private UserDetailsService userDetailsService;
+	@Autowired
+	private UserDetailsService userDetailsService;
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	@Bean
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-            .authorizeRequests()
-                .antMatchers("/resources/**","/css/**","/js/**","/upload-dir/**", "/**",
-                		"/album","/album/**","/cercaAlbum","/foto/**",
-                		"/selezionaFoto/**","/deselezionaFoto/**","/getFotoSelezionate",
-                		"/inviaRichiesta","/salvaRichiesta","/cercaRichieste","/login").permitAll()
-                .anyRequest().authenticated()
-                .and()
-            .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .and()
-            .logout()
-            	.logoutRequestMatcher(
-                    new AntPathRequestMatcher("/logout")
-            			)
-            	.addLogoutHandler(new TaskImplementingLogoutHandler())
-            	.logoutSuccessUrl("/").permitAll();
-        
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http
+		.authorizeRequests()
+		.antMatchers("/resources/**","/css/**","/js/**","/upload-dir/**", "/",
+				"/album","/album/**","/cercaAlbum","/foto/**",
+				"/selezionaFoto/**","/deselezionaFoto/**","/getFotoSelezionate",
+				"/inviaRichiesta","/salvaRichiesta","/cercaRichieste","/login","/fotografi","/fotografo/**","/cercaFotografi").permitAll()
+		.anyRequest().authenticated()
+		.and()
+		.formLogin()
+		.loginPage("/login")
+		.permitAll()
+		.and()
+		.logout()
+		.logoutRequestMatcher(
+				new AntPathRequestMatcher("/logout")
+				)
+		.addLogoutHandler(new TaskImplementingLogoutHandler())
+		.logoutSuccessUrl("/").permitAll();
 
-    }
 
-    @Bean
-    public AuthenticationManager customAuthenticationManager() throws Exception {
-        return authenticationManager();
-    }
+	}
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
-    }
+	@Bean
+	public AuthenticationManager customAuthenticationManager() throws Exception {
+		return authenticationManager();
+	}
+
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+	}
 }

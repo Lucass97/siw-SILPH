@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
+import it.uniroma3.siw.model.Funzionario;
+import it.uniroma3.siw.services.FunzionarioService;
 import it.uniroma3.siw.services.storage.StorageProperties;
 import it.uniroma3.siw.services.storage.StorageService;
 
@@ -18,10 +20,15 @@ public class FotoApplication {
 	}
 
 	@Bean
-	CommandLineRunner init(StorageService storageService) {
+	CommandLineRunner init(StorageService storageService,FunzionarioService funzionarioService) {
 		return (args) -> {
 			//storageService.deleteAll();
 			storageService.init();
+			Funzionario funzionario = new Funzionario();
+			funzionario.setUsername("luca");
+			funzionario.setUsername("ciao1234");
+			if(!funzionarioService.esiste("luca"))
+				funzionarioService.save(funzionario);
 		};
 	}
 
