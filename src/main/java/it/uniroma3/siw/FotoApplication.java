@@ -6,8 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
-import it.uniroma3.siw.model.Funzionario;
-import it.uniroma3.siw.services.FunzionarioService;
 import it.uniroma3.siw.services.storage.StorageProperties;
 import it.uniroma3.siw.services.storage.StorageService;
 
